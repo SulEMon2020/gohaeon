@@ -1,716 +1,465 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>고해온 | COMMISSION & PORTFOLIO</title>
-    <link rel="icon" href="favicon.png" type="image/png">
-    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
-    <style>
-        :root {
-            --bg-main: #0d0d0e;
-            --bg-card: #151518;
-            --bg-sidebar: #111113;
-            --border-color: #242428;
-            --border-hover: #3a3a40;
-            --text-primary: #ececef;
-            --text-secondary: #94949e;
-            --text-muted: #55555e;
-            --accent-gold: #e5c158;
-            --accent-red: #e74c3c;
-            --sidebar-width: 260px;
-        }
-
-        [data-theme="light"] {
-            --bg-main: #f8fafc;
-            --bg-card: #ffffff;
-            --bg-sidebar: #f1f5f9;
-            --border-color: #e2e8f0;
-            --border-hover: #cbd5e1;
-            --text-primary: #0f172a;
-            --text-secondary: #475569;
-            --text-muted: #94a3b8;
-            --accent-gold: #d97706;
-            --accent-red: #dc2626;
-        }
-
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-            letter-spacing: -0.01em;
-        }
-
-        body {
-            background-color: var(--bg-main);
-            color: var(--text-primary);
-            -webkit-font-smoothing: antialiased;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
-
-        #themeToggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background-color: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: var(--text-primary);
-            padding: 10px 18px;
-            border-radius: 30px;
-            font-size: 0.85rem;
-            font-weight: bold;
-            cursor: pointer;
-            backdrop-filter: blur(5px);
-        }
-
-        .layout-container {
-            display: flex;
-            min-height: 100vh;
-        }
-
-        .sidebar {
-            width: var(--sidebar-width);
-            min-width: var(--sidebar-width);
-            padding: 50px 35px;
-            border-right: 1px solid var(--border-color);
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            background: var(--bg-sidebar);
-            z-index: 100;
-        }
-
-        .profile-img {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-        }
-
-        .artist-name {
-            font-size: 1.3rem;
-            font-weight: 800;
-            color: var(--text-primary);
-        }
-
-        .status-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: var(--accent-gold);
-            margin-top: 6px;
-            letter-spacing: 1px;
-        }
-
-        .nav-menu {
-            margin-top: 45px;
-        }
-
-        .menu-title {
-            font-size: 0.7rem;
-            font-weight: 800;
-            color: var(--text-muted);
-            letter-spacing: 2px;
-            display: block;
-            margin-bottom: 20px;
-        }
-
-        .nav-menu ul {
-            list-style: none;
-        }
-
-        .nav-menu li {
-            margin-bottom: 18px;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            font-weight: 500;
-            transition: all 0.3s ease;
-            display: inline-block;
-        }
-
-        .nav-menu a:hover,
-        .nav-menu a.active {
-            color: var(--text-primary);
-            font-weight: 700;
-            transform: translateX(4px);
-        }
-
-        .sidebar-footer {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-        }
-
-        .fanart-notice-sidebar {
-            margin-top: 6px;
-            font-size: 0.68rem;
-            color: var(--text-muted);
-            line-height: 1.4;
-        }
-
-        .main-content {
-            margin-left: var(--sidebar-width);
-            flex: 1;
-            padding: 70px 90px;
-            max-width: 980px;
-        }
-
-        .tab-content {
-            display: none;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        .section-title {
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            margin-bottom: 35px;
-            color: var(--text-primary);
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 12px;
-            display: inline-block;
-        }
-
-        .about-card, .intro-banner, .price-box, .order-box {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            padding: 32px;
-            border-radius: 12px;
-            margin-bottom: 28px;
-        }
-
-        .about-card h3, .price-header h3, .order-box h3 {
-            font-size: 1rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 16px;
-        }
-
-        .about-bio, .intro-text {
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        .sns-link-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 14px;
-        }
-
-        .sns-btn {
-            display: flex;
-            flex-direction: column;
-            padding: 18px 20px;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .sns-btn:hover {
-            border-color: var(--border-hover);
-            background: rgba(255, 255, 255, 0.05);
-            transform: translateY(-3px);
-        }
-
-        .sns-icon { font-size: 1.2rem; margin-bottom: 8px; }
-        .sns-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
-        .sns-id { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-
-        .info-list { list-style: none; }
-        .info-list li {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--border-color);
-            color: var(--text-secondary);
-        }
-
-        .price-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 16px;
-            margin-bottom: 24px;
-        }
-
-        .price-table { display: flex; gap: 30px; }
-        .price-column { flex: 1; }
-        .price-column h4 { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; }
-        .price-column ul { list-style: none; }
-        .price-column li {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-            color: var(--text-secondary);
-        }
-
-        .gallery-sub-menu, .filter-bar {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-
-        .sub-btn, .filter-btn {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            padding: 8px 18px;
-            border-radius: 30px;
-            cursor: pointer;
-        }
-
-        .sub-btn.active, .filter-btn.active {
-            background: var(--text-primary);
-            color: var(--bg-main);
-            font-weight: 700;
-        }
-
-        .sub-gallery { display: none; }
-        .sub-gallery.active { display: block; }
-
-        .gallery-scroll-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 16px;
-        }
-
-        .gallery-card {
-            width: 100%;
-            aspect-ratio: 1 / 1;
-            overflow: hidden;
-            border-radius: 10px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-card);
-            cursor: pointer;
-        }
-
-        .gallery-card img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .image-modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            justify-content: center;
-            align-items: center;
-        }
-
-        .image-modal.active { display: flex; }
-        .modal-content { max-width: 90%; max-height: 90vh; }
-        .modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; }
-
-        .faq-item {
-            background: var(--bg-main);
-            border: 1px solid var(--border-color);
-            border-radius: 10px;
-            margin-bottom: 12px;
-        }
-        .faq-item summary { padding: 16px; font-weight: bold; cursor: pointer; }
-        .faq-item p { padding: 0 16px 16px 16px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
-
-        .direct-form-group { margin-bottom: 16px; }
-        .direct-form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--text-secondary); }
-        .direct-form-group input, .direct-form-group select, .direct-form-group textarea {
-            width: 100%; padding: 12px; background: var(--bg-main);
-            border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary);
-        }
-
-        .submit-btn {
-            width: 100%; background: var(--text-primary); color: var(--bg-main);
-            border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer;
-        }
-
-        .contact-btn {
-            display: block; text-align: center; background: var(--text-primary);
-            color: var(--bg-main); text-decoration: none; padding: 20px; border-radius: 12px; font-weight: 800;
-        }
-
-        @media (max-width: 768px) {
-            .layout-container { flex-direction: column; }
-            .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 20px; }
-            .main-content { margin-left: 0; padding: 20px; }
-            .price-table { flex-direction: column; gap: 16px; }
-        }
-    </style>
-</head>
-<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
-
-    <button id="themeToggle" onclick="toggleTheme()">
-        <span id="themeIcon">🌙</span> <span id="themeText">다크 모드</span>
-    </button>
-
-    <div class="layout-container">
-        
-        <!-- 사이드바 -->
-        <aside class="sidebar">
-            <div class="profile-section">
-                <img src="https://pbs.twimg.com/profile_images/1965673177654460416/6UTWt8N8_400x400.jpg" alt="프로필" class="profile-img">
-                <h1 class="artist-name">고해온</h1>
-                <p class="status-tag">COMMISSION OPEN</p>
-            </div>
-
-            <nav class="nav-menu">
-                <div class="menu-group">
-                    <span class="menu-title">MENU</span>
-                    <ul>
-                        <li><a href="#" onclick="showTab('about', this)" class="active">소개 / SNS</a></li>
-                        <li><a href="#" onclick="showTab('portfolio', this)">포트폴리오</a></li>
-                        <li><a href="#" onclick="showTab('art-commission', this)">그림 커미션</a></li>
-                        <li><a href="#" onclick="showTab('vrchat-commission', this)">아바타 커미션</a></li>
-                        <li><a href="#" onclick="showTab('contact', this)">HOW TO ORDER</a></li>
-                    </ul>
-                </div>
-            </nav>
-
-            <div class="sidebar-footer">
-                <p>© 2026 고해온. All rights reserved.</p>
-                <p class="fanart-notice-sidebar">※ 본 사이트에는 창작물과 팬아트가 함께 포함되어 있습니다.</p>
-            </div>
-        </aside>
-
-        <!-- 메인 콘텐츠 영역 -->
-        <main class="main-content">
-            
-            <!-- 01. ABOUT & SNS -->
-            <section id="about" class="tab-content active">
-                <h2 class="section-title">ABOUT & SNS</h2>
-
-                <div class="about-card">
-                    <h3>✨ ABOUT ME</h3>
-                    <p class="about-bio">
-                        안녕하세요! 고해온입니다. 찾아와 주셔서 감사합니다.<br>
-                        캐릭터 일러스트 커미션을 진행하고 있습니다.<br>
-                        문의사항이 있으시다면 언제나 편하게 연락 주세요!
-                    </p>
-                </div>
-
-                <div class="about-card">
-                    <h3>🔗 OFFICIAL CHANNELS</h3>
-                    <div class="sns-link-grid">
-                        <a href="https://twitter.com/2NoSun2" target="_blank" class="sns-btn">
-                            <span class="sns-icon">𝕏</span>
-                            <span class="sns-name">Twitter (X)</span>
-                            <span class="sns-id">@2NoSun2</span>
-                        </a>
-                        <a href="https://www.instagram.com/gohaeon/" target="_blank" class="sns-btn">
-                            <span class="sns-icon">📷</span>
-                            <span class="sns-name">Instagram</span>
-                            <span class="sns-id">@gohaeon</span>
-                        </a>
-                        <a href="https://www.pixiv.net/users/107420736" target="_blank" class="sns-btn">
-                            <span class="sns-icon">🎨</span>
-                            <span class="sns-name">Pixiv</span>
-                            <span class="sns-id">고해온</span>
-                        </a>
-                        <a href="mailto:ibaeg200200@naver.com" class="sns-btn">
-                            <span class="sns-icon">✉️</span>
-                            <span class="sns-name">Email</span>
-                            <span class="sns-id">ibaeg200200@naver.com</span>
-                        </a>
-                        <a href="https://www.youtube.com/@%ED%95%B4%EC%98%A8%EC%9D%B4%EB%84%A4%ED%99%94%EC%8B%A4%EA%B3%B5%EB%B0%A9" target="_blank" class="sns-btn">
-                            <span class="sns-icon">▶️</span>
-                            <span class="sns-name">Youtube</span>
-                            <span class="sns-id">해온이네화실공방</span>
-                        </a>
-                    </div>
-                </div>
-
-                <div class="about-card">
-                    <h3>💻 WORK ENVIRONMENT</h3>
-                    <ul class="info-list">
-                        <li><span>Tool</span> <strong>CLIP STUDIO PAINT EX / Unity</strong></li>
-                        <li><span>Device</span> <strong>XPpen Artist Pro 16 (Gen 2)</strong></li>
-                    </ul>
-                </div>
-            </section>
-
-            <!-- 02. PORTFOLIO -->
-            <section id="portfolio" class="tab-content">
-                <h2 class="section-title">PORTFOLIO</h2>
-
-                <div style="background: rgba(255,255,255,0.03); border: 1px dashed var(--border-color); padding: 12px 18px; border-radius: 8px; margin-bottom: 24px; font-size: 0.82rem; color: var(--text-secondary);">
-                    <span>💡 본 포트폴리오에는 오리지널 창작물과 함께 팬아트 작품이 포함되어 있습니다.</span>
-                </div>
-
-                <div class="gallery-sub-menu">
-                    <button class="sub-btn active" onclick="switchMainGallery('art-gallery', this)">그림 포트폴리오</button>
-                    <button class="sub-btn" onclick="switchMainGallery('avatar-gallery', this)">아바타 포트폴리오</button>
-                    <button class="sub-btn" onclick="switchMainGallery('anime-gallery', this)">🎬 애니메이션</button>
-                </div>
-
-                <!-- 그림 포트폴리오 -->
-                <div id="art-gallery" class="sub-gallery active">
-                    <div class="filter-bar">
-                        <button class="filter-btn active" onclick="filterArt('all', this)">ALL</button>
-                        <button class="filter-btn" onclick="filterArt('color', this)">🎨 채색 그림</button>
-                        <button class="filter-btn" onclick="filterArt('line', this)">✏️ 선화 그림</button>
-                    </div>
-
-                    <div class="gallery-scroll-list">
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="파우스트.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="자로.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="해온이.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="싱클.jpg" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="홍루생축.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="이스.jpg" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="뤼에엔.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="유리.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="초깨비셀카.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="이스으.gif" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="아르갈리아.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="뤼엔.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="돈키호테.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="뤼엔롤랑.png" alt="샘플"></div>
-                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)"><img src="삼사키아라채색.png" alt="샘플"></div>
-
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="초깨비선화.png" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="파우스트선화.png" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="이스선화1.jpg" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="이스선화2.jpg" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="지현선화.jpg" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="그렉선화.jpg" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="트최그.png" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="삼사키아라.jpg" alt="선화"></div>
-                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)"><img src="카이가쿠.jpg" alt="선화"></div>
-                    </div>
-                </div>
-
-                <!-- 아바타 포트폴리오 -->
-                <div id="avatar-gallery" class="sub-gallery">
-                    <div class="gallery-scroll-list">
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="avatar1.jpg" alt="아바타"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="avatar2.jpg" alt="아바타"></div>
-                    </div>
-                </div>
-
-                <!-- 애니메이션 포트폴리오 -->
-                <div id="anime-gallery" class="sub-gallery">
-                    <div class="gallery-scroll-list">
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="현이.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="애니메이션 샘플 1.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="애니메이션 샘플 2.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="애니메이션 샘플 3.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="애니메이션 샘플 4.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="유현빙글.gif" alt="애니"></div>
-                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="노해빙글.gif" alt="애니"></div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 03. ART COMMISSION -->
-            <section id="art-commission" class="tab-content">
-                <div class="intro-banner">
-                    <h2>🎨 ART COMMISSION</h2>
-                    <p class="intro-text">저번 그림 커미션보다 가격이 인상됐습니다.</p>
-                    <p class="intro-text">신청 전 충분히 고민해보시길 권장드립니다!</p>
-                    <div style="margin-top:15px; background: rgba(229,193,88,0.1); border:1px solid var(--accent-gold); color:var(--accent-gold); padding:6px 12px; display:inline-block; border-radius:20px; font-size:0.8rem;">✨ 2인 타입 신청 시 10% 할인 적용!</div>
-                </div>
-
-                <div class="price-box">
-                    <div class="price-header">
-                        <h3>📢 사용 용도별 가격 안내</h3>
-                    </div>
-                    <ul style="list-style-position: inside; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.8;">
-                        <li><strong>비상업적 (소장 / 개인 프로필):</strong> 기본가 (100%)</li>
-                        <li><strong>방송용 (유튜브, 치지직, 썸네일 등):</strong> 기본가 × 2</li>
-                        <li><strong>상업용 (굿즈 판매, 웹소설 표지 등):</strong> 별도 문의 (상담 후 협의)</li>
-                    </ul>
-                </div>
-
-                <div class="price-box">
-                    <div class="price-header">
-                        <h3>✏️ 선화 (Line Art)</h3>
-                        <span style="font-size:0.8rem; color:var(--text-muted);">배경 추가 +2,000원</span>
-                    </div>
-                    <div class="price-table">
-                        <div class="price-column">
-                            <h4>1인</h4>
-                            <ul>
-                                <li><span>흉상</span> <strong>5,000원</strong></li>
-                                <li><span>반신</span> <strong>10,000원</strong></li>
-                                <li><span>전신</span> <strong>15,000원</strong></li>
-                            </ul>
-                        </div>
-                        <div class="price-column">
-                            <h4>2인 <span style="color:var(--accent-gold);">10% OFF</span></h4>
-                            <ul>
-                                <li><span>흉상</span> <strong>9,000원</strong></li>
-                                <li><span>반신</span> <strong>18,000원</strong></li>
-                                <li><span>전신</span> <strong>27,000원</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="price-box">
-                    <div class="price-header">
-                        <h3>🎨 채색 (Coloring)</h3>
-                        <span style="font-size:0.8rem; color:var(--text-muted);">배경 추가 +4,000원</span>
-                    </div>
-                    <div class="price-table">
-                        <div class="price-column">
-                            <h4>1인</h4>
-                            <ul>
-                                <li><span>흉상</span> <strong>15,000원</strong></li>
-                                <li><span>반신</span> <strong>30,000원</strong></li>
-                                <li><span>전신</span> <strong>45,000원</strong></li>
-                            </ul>
-                        </div>
-                        <div class="price-column">
-                            <h4>2인 <span style="color:var(--accent-gold);">10% OFF</span></h4>
-                            <ul>
-                                <li><span>흉상</span> <strong>27,000원</strong></li>
-                                <li><span>반신</span> <strong>54,000원</strong></li>
-                                <li><span>전신</span> <strong>81,000원</strong></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- 04. VRChat COMMISSION -->
-            <section id="vrchat-commission" class="tab-content">
-                <div class="intro-banner">
-                    <h2>🧊 VRChat AVATAR COMMISSION</h2>
-                    <p class="intro-text">VRChat 3D 아바타 뚜따 커미션 안내 페이지입니다.</p>
-                    <div style="margin-top:15px; background: rgba(255,255,255,0.05); border:1px solid var(--border-color); padding:6px 12px; display:inline-block; border-radius:20px; font-size:0.8rem;">🚧 추후 개장 예정 준비 중입니다!</div>
-                </div>
-            </section>
-
-            <!-- 05. HOW TO ORDER -->
-            <section id="contact" class="tab-content">
-                <h2 class="section-title">HOW TO ORDER</h2>
-
-                <div class="about-card">
-                    <h3>❓ 자주 묻는 질문 (FAQ)</h3>
-                    <details class="faq-item">
-                        <summary>Q. 비상업적 용도로 구매한 그림을 방송용으로 써도 되나요?</summary>
-                        <p>비상업적 커미션은 개인 소장에만 사용하실 수 있으며, 방송 활용 시 <strong>'방송용(기본가 × 2)'</strong>을 선택해 주셔야 합니다.</p>
-                    </details>
-                    <details class="faq-item">
-                        <summary>Q. 수정(피드백)은 몇 회까지 가능한가요?</summary>
-                        <p>수정은 <strong>선화 단계에서 최대 3회까지</strong> 가능합니다.</p>
-                    </details>
-                </div>
-
-                <div class="about-card">
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
-                        <h3 style="margin:0;">📋 COMMISSION 신청 양식</h3>
-                        <button onclick="copyFormText()" style="background: var(--text-primary); color: var(--bg-main); border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold;">📋 양식 복사하기</button>
-                    </div>
-                    <pre id="formContent" style="background: var(--bg-main); padding: 18px; border-radius: 12px; font-family: inherit; font-size: 0.85rem; color: var(--text-primary); line-height: 1.7; white-space: pre-wrap; border: 1px solid var(--border-color);">01. 신청자 정보
-닉네임 / 입금자명 → 
-
-02. 신청 내용
-신청 타입 → 선화 / 채색
-신청 범위 → 흉상 / 반신 / 전신
-인원 → 1인 / 2인
-용도 → 비상업적 / 방송용 / 상업용
-
-03. 기타 요청사항 → </pre>
-                </div>
-
-                <div class="about-card">
-                    <h3>📩 사이트에서 바로 신청하기</h3>
-                    <form action="https://formspree.io/f/xyeyobal" method="POST">
-                        <div class="direct-form-group">
-                            <label>신청자 닉네임 및 이메일</label>
-                            <input type="text" name="applicant_info" placeholder="예: 고해온 / ibaeg200200@naver.com" required>
-                        </div>
-                        <div class="direct-form-group">
-                            <label>신청서 작성 내용</label>
-                            <textarea name="content" rows="6" placeholder="양식을 복사하여 작성해 주세요." required></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">신청서 제출하기</button>
-                    </form>
-                </div>
-
-                <div style="margin-top: 20px;">
-                    <a href="https://open.kakao.com/o/sMPEO0Mi" target="_blank" class="contact-btn">💬 오픈카카오톡으로 문의하기</a>
-                </div>
-            </section>
-
-        </main>
-    </div>
-
-    <!-- 이미지 확대 모달 -->
-    <div id="imageModal" class="image-modal" onclick="closeModal()">
-        <span class="modal-close">&times;</span>
-        <img class="modal-content" id="modalImg" alt="확대 이미지">
-    </div>
-
-    <script>
-        function toggleTheme() {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const targetTheme = currentTheme === 'light' ? 'dark' : 'light';
-            document.documentElement.setAttribute('data-theme', targetTheme);
-            document.getElementById('themeText').textContent = targetTheme === 'light' ? '라이트 모드' : '다크 모드';
-            document.getElementById('themeIcon').textContent = targetTheme === 'light' ? '☀️' : '🌙';
-        }
-
-        function showTab(tabId, element) {
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-            document.querySelectorAll('.nav-menu a').forEach(a => a.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        function switchMainGallery(galleryId, element) {
-            document.querySelectorAll('.sub-gallery').forEach(g => g.classList.remove('active'));
-            document.getElementById(galleryId).classList.add('active');
-            document.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        function filterArt(type, element) {
-            document.querySelectorAll('.art-item').forEach(item => {
-                item.style.display = (type === 'all' || item.classList.contains(type)) ? 'block' : 'none';
-            });
-            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-            element.classList.add('active');
-        }
-
-        function openModal(src) {
-            document.getElementById('imageModal').classList.add('active');
-            document.getElementById('modalImg').src = src;
-        }
-
-        function closeModal() {
-            document.getElementById('imageModal').classList.remove('active');
-        }
-
-        function copyFormText() {
-            const text = document.getElementById('formContent').innerText;
-            navigator.clipboard.writeText(text).then(() => alert('신청 양식이 복사되었습니다!'));
-        }
-    </script>
-</body>
-</html>
+/* ==========================================================================
+   테마 변수 설정 (다크 / 라이트)
+   ========================================================================== */
+:root {
+    --bg-main: #0d0d0e;
+    --bg-card: #151518;
+    --bg-sidebar: #111113;
+    --border-color: #242428;
+    --border-hover: #3a3a40;
+    --text-primary: #ececef;
+    --text-secondary: #94949e;
+    --text-muted: #55555e;
+    --accent-gold: #e5c158;
+    --accent-red: #e74c3c;
+    --sidebar-width: 260px;
+}
+
+[data-theme="light"] {
+    --bg-main: #f8fafc;
+    --bg-card: #ffffff;
+    --bg-sidebar: #f1f5f9;
+    --border-color: #e2e8f0;
+    --border-hover: #cbd5e1;
+    --text-primary: #0f172a;
+    --text-secondary: #475569;
+    --text-muted: #94a3b8;
+    --accent-gold: #d97706;
+    --accent-red: #dc2626;
+}
+
+/* ==========================================================================
+   기본 리셋 및 전역 스타일
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* 이미지 불법 드래그/선택 방지 */
+img {
+    -webkit-user-drag: none;
+    user-select: none;
+}
+
+/* ==========================================================================
+   테마 토글 버튼
+   ========================================================================== */
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1001;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: var(--text-primary);
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    backdrop-filter: blur(5px);
+}
+
+/* ==========================================================================
+   레이아웃 및 사이드바
+   ========================================================================== */
+.layout-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+.sidebar {
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    padding: 50px 35px;
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg-sidebar);
+    z-index: 100;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.artist-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: var(--text-primary);
+}
+
+.status-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-top: 6px;
+    letter-spacing: 1px;
+}
+
+.nav-menu {
+    margin-top: 45px;
+}
+
+.menu-title {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-bottom: 18px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: var(--text-primary);
+    font-weight: 700;
+    transform: translateX(4px);
+}
+
+.sidebar-footer {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.fanart-notice-sidebar {
+    margin-top: 6px;
+    font-size: 0.68rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+}
+
+/* ==========================================================================
+   메인 콘텐츠
+   ========================================================================== */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 70px 90px;
+    max-width: 980px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 35px;
+    color: var(--text-primary);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    display: inline-block;
+}
+
+.about-card, .intro-banner, .price-box {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 32px;
+    border-radius: 12px;
+    margin-bottom: 28px;
+}
+
+.about-card h3, .price-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 16px;
+}
+
+.about-bio, .intro-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* SNS 링크 그리드 */
+.sns-link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.sns-btn {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sns-btn:hover {
+    border-color: var(--border-hover);
+    background: rgba(255, 255, 255, 0.05);
+    transform: translateY(-3px);
+}
+
+.sns-icon { font-size: 1.2rem; margin-bottom: 8px; }
+.sns-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
+.sns-id { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
+
+/* 정보 리스트 */
+.info-list { list-style: none; }
+.info-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+/* ==========================================================================
+   포트폴리오 & 갤러리
+   ========================================================================== */
+.portfolio-notice {
+    background: rgba(255,255,255,0.03);
+    border: 1px dashed var(--border-color);
+    padding: 12px 18px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+}
+
+.gallery-sub-menu, .filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+
+.sub-btn, .filter-btn {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+    padding: 8px 18px;
+    border-radius: 30px;
+    cursor: pointer;
+}
+
+.sub-btn.active, .filter-btn.active {
+    background: var(--text-primary);
+    color: var(--bg-main);
+    font-weight: 700;
+}
+
+.sub-gallery { display: none; }
+.sub-gallery.active { display: block; }
+
+.gallery-scroll-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+}
+
+.gallery-card {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    cursor: pointer;
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ==========================================================================
+   커미션 안내 & 가격표
+   ========================================================================== */
+.discount-tag {
+    margin-top: 15px;
+    background: rgba(229,193,88,0.1);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.coming-soon-tag {
+    margin-top: 15px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border-color);
+    padding: 6px 12px;
+    display: inline-block;
+    border-radius: 20px;
+    font-size: 0.8rem;
+}
+
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.price-header .sub-info {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.usage-list {
+    list-style-position: inside;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    line-height: 1.8;
+}
+
+.price-table { display: flex; gap: 30px; }
+.price-column { flex: 1; }
+.price-column h4 { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 14px; }
+.price-column ul { list-style: none; }
+.price-column li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+}
+.highlight-text { color: var(--accent-gold); }
+
+/* ==========================================================================
+   신청 양식 및 폼
+   ========================================================================== */
+.faq-item {
+    background: var(--bg-main);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    margin-bottom: 12px;
+}
+.faq-item summary { padding: 16px; font-weight: bold; cursor: pointer; }
+.faq-item p { padding: 0 16px 16px 16px; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.6; }
+
+.form-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.copy-btn {
+    background: var(--text-primary);
+    color: var(--bg-main);
+    border: none;
+    padding: 8px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+.form-preview {
+    background: var(--bg-main);
+    padding: 18px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--text-primary);
+    line-height: 1.7;
+    white-space: pre-wrap;
+    border: 1px solid var(--border-color);
+}
+
+.direct-form-group { margin-bottom: 16px; }
+.direct-form-group label { display: block; margin-bottom: 6px; font-size: 0.9rem; color: var(--text-secondary); }
+.direct-form-group input, .direct-form-group textarea {
+    width: 100%; padding: 12px; background: var(--bg-main);
+    border: 1px solid var(--border-color); border-radius: 8px; color: var(--text-primary);
+}
+
+.submit-btn {
+    width: 100%; background: var(--text-primary); color: var(--bg-main);
+    border: none; padding: 14px; border-radius: 8px; font-weight: bold; cursor: pointer;
+}
+
+.contact-btn {
+    display: block; text-align: center; background: var(--text-primary);
+    color: var(--bg-main); text-decoration: none; padding: 20px; border-radius: 12px; font-weight: 800;
+}
+
+/* ==========================================================================
+   이미지 모달
+   ========================================================================== */
+.image-modal {
+    display: none;
+    position: fixed;
+    z-index: 2000;
+    left: 0; top: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    justify-content: center;
+    align-items: center;
+}
+
+.image-modal.active { display: flex; }
+.modal-content { max-width: 90%; max-height: 90vh; object-fit: contain; }
+.modal-close { position: absolute; top: 20px; right: 30px; color: #fff; font-size: 35px; cursor: pointer; }
+
+/* ==========================================================================
+   모바일 미디어 쿼리 (반응형)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .layout-container { flex-direction: column; }
+    .sidebar { width: 100%; position: relative; height: auto; border-right: none; border-bottom: 1px solid var(--border-color); padding: 20px; }
+    .main-content { margin-left: 0; padding: 20px; }
+    .price-table { flex-direction: column; gap: 16px; }
+    #themeToggle { top: 15px; right: 15px; padding: 6px 12px; font-size: 0.75rem; }
+}
