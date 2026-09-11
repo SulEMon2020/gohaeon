@@ -1309,41 +1309,80 @@
 → 공개 가능 / 비공개</pre>
                 </div>
 
-                <!-- Formspree 직접 전송 폼 -->
-                <div class="about-card">
-                    <h3 style="margin:0 0 10px 0;">📩 사이트에서 바로 신청하기</h3>
-                    <p style="color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 20px;">오픈카카오톡 없이 사이트에서 직접 작가에게 메시지를 남길 수 있습니다.</p>
-                    
-                    <form action="https://formspree.io/f/xyeyobal" method="POST">
-                        <div class="direct-form-group">
-                            <label>신청자 닉네임 및 연락받으실 이메일</label>
-                            <input type="text" name="applicant_info" placeholder="예: 고해온 / ibaeg200200@naver.com" required>
-                        </div>
-
-                        <div class="direct-form-group">
-                            <label>사용 용도</label>
-                            <select name="usage">
-                                <option value="비상업적">비상업적 (소장 / 개인 프로필)</option>
-                                <option value="방송용">방송용 (수익형 방송 / 썸네일)</option>
-                                <option value="상업용">상업용 (굿즈 / 판매용 / 외주)</option>
-                            </select>
-                        </div>
-
-                        <div class="direct-form-group">
-                            <label>신청서 작성 내용 (상단의 양식을 참고해 참고 자료 링크와 함께 적어주세요)</label>
-                            <textarea name="content" rows="10" placeholder="위의 신청 양식을 복사하여 구글 드라이브/이미지 링크와 함께 내용을 작성해 주세요." required></textarea>
-                        </div>
-
-                        <button type="submit" class="submit-btn">작성한 신청서 제출하기</button>
-                    </form>
+                <div class="application-method-guide" style="margin-bottom: 20px;">
+                    <p style="margin: 0; color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">
+                        <strong style="color: var(--text-primary);">빠르게 직접 상담하고 이미지까지 보내고 싶다</strong> → 오픈카톡<br>
+                        <strong style="color: var(--text-primary);">우선 신청 내용을 남기고 답변을 받고 싶다</strong> → 사이트 신청 문의
+                    </p>
                 </div>
 
-                <!-- 오픈카카오톡 버튼 -->
-                <div class="contact-wrapper" style="margin-top: 30px;">
-                    <a href="https://open.kakao.com/o/sMPEO0Mi" target="_blank" class="contact-btn">
-                        💬 오픈카카오톡으로 문의/신청하기
-                    </a>
+                <!-- 신청 방법 안내 -->
+                <div style="text-align:center; margin-bottom:24px;">
+                    <h3 style="margin:0 0 8px 0;">신청 방법을 선택해주세요</h3>
+                    <p style="color: var(--text-secondary); font-size:0.9rem; margin:0;">
+                        편한 방법으로 신청해주시면 확인 후 안내해드립니다.
+                    </p>
                 </div>
+
+                <!-- 신청 방법 선택 -->
+                <div class="application-methods" style="display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:20px; align-items:stretch;">
+
+                    <!-- 사이트 신청 문의 -->
+                    <div class="about-card" style="margin:0; display:flex; flex-direction:column;">
+                        <h3 style="margin:0 0 10px 0;">📝 사이트에서 신청 문의</h3>
+                        <p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.7; margin:0 0 20px 0;">
+                            <strong>우선 신청 내용을 남기고 답변을 받고 싶다면</strong><br>
+                            신청 내용을 확인한 후 작성해주신 이메일로 신청 가능 여부와 진행 방법을 안내드립니다.
+                        </p>
+
+                        <form action="https://formspree.io/f/xyeyobal" method="POST" style="margin-top:auto;">
+                            <div class="direct-form-group">
+                                <label>신청자 닉네임 및 답변받으실 이메일</label>
+                                <input type="text" name="applicant_info" placeholder="예: 고해온 / ibaeg200200@naver.com" required>
+                            </div>
+
+                            <div class="direct-form-group">
+                                <label>사용 용도</label>
+                                <select name="usage">
+                                    <option value="비상업적">비상업적 (소장 / 개인 프로필)</option>
+                                    <option value="방송용">방송용 (수익형 방송 / 썸네일)</option>
+                                    <option value="상업용">상업용 (굿즈 / 판매용 / 외주)</option>
+                                </select>
+                            </div>
+
+                            <div class="direct-form-group">
+                                <label>신청 내용</label>
+                                <textarea name="content" rows="7" placeholder="상단의 신청 양식을 참고하여 내용을 작성해주세요. 참고 자료는 구글 드라이브 또는 이미지 링크로 첨부해주세요." required></textarea>
+                            </div>
+
+                            <button type="submit" class="submit-btn" style="width:100%;">신청 문의 보내기</button>
+                        </form>
+                    </div>
+
+                    <!-- 오픈카카오톡 신청 -->
+                    <div class="about-card" style="margin:0; display:flex; flex-direction:column; justify-content:center; text-align:center;">
+                        <div>
+                            <h3 style="margin:0 0 12px 0;">💬 오픈카카오톡으로 신청</h3>
+                            <p style="color:var(--text-secondary); font-size:0.85rem; line-height:1.7; margin:0 0 24px 0;">
+                                <strong>빠르게 직접 상담하고 이미지까지 보내고 싶다면</strong><br>
+                                오픈카카오톡에서 바로 상담하며 신청할 수 있습니다.
+                            </p>
+                        </div>
+
+                        <a href="https://open.kakao.com/o/sMPEO0Mi" target="_blank" class="contact-btn" style="width:100%; box-sizing:border-box;">
+                            오픈카카오톡으로 신청하기
+                        </a>
+                    </div>
+
+                </div>
+
+                <style>
+                    @media (max-width: 768px) {
+                        .application-methods {
+                            grid-template-columns: 1fr !important;
+                        }
+                    }
+                </style>
             </section>
 
         </main>
