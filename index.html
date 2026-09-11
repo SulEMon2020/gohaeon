@@ -6,22 +6,18 @@
     <title>고해온 | COMMISSION & PORTFOLIO</title>
     <link rel="icon" href="favicon.png" type="image/png">
     
-    <!-- Pretendard 폰트 불러오기 -->
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
     
-    <!-- External CSS 파일 연결 -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-    <!-- 다크/라이트 테마 전환 버튼 -->
     <button id="themeToggle" onclick="toggleTheme()">
         <span id="themeIcon">🌙</span> <span id="themeText">다크 모드</span>
     </button>
 
     <div class="layout-container">
         
-        <!-- 사이드바 -->
         <aside class="sidebar">
             <div class="profile-section">
                 <img src="https://pbs.twimg.com/profile_images/1965673177654460416/6UTWt8N8_400x400.jpg" alt="프로필" class="profile-img">
@@ -48,10 +44,8 @@
             </div>
         </aside>
 
-        <!-- 메인 콘텐츠 영역 -->
         <main class="main-content">
             
-            <!-- 01. ABOUT & SNS -->
             <section id="about" class="tab-content active">
                 <h2 class="section-title">ABOUT & SNS</h2>
 
@@ -104,7 +98,6 @@
                 </div>
             </section>
 
-            <!-- 02. PORTFOLIO -->
             <section id="portfolio" class="tab-content">
                 <h2 class="section-title">PORTFOLIO</h2>
 
@@ -118,7 +111,6 @@
                     <button class="sub-btn" onclick="switchMainGallery('anime-gallery', this)">🎬 애니메이션</button>
                 </div>
 
-                <!-- 그림 포트폴리오 -->
                 <div id="art-gallery" class="sub-gallery active">
                     <div class="filter-bar">
                         <button class="filter-btn active" onclick="filterArt('all', this)">ALL</button>
@@ -155,7 +147,6 @@
                     </div>
                 </div>
 
-                <!-- 아바타 포트폴리오 -->
                 <div id="avatar-gallery" class="sub-gallery">
                     <div class="gallery-scroll-list">
                         <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="avatar1.jpg" alt="아바타"></div>
@@ -163,7 +154,6 @@
                     </div>
                 </div>
 
-                <!-- 애니메이션 포트폴리오 -->
                 <div id="anime-gallery" class="sub-gallery">
                     <div class="gallery-scroll-list">
                         <div class="gallery-card" onclick="openModal(this.querySelector('img').src)"><img src="현이.gif" alt="애니"></div>
@@ -177,7 +167,6 @@
                 </div>
             </section>
 
-            <!-- 03. ART COMMISSION -->
             <section id="art-commission" class="tab-content">
                 <div class="intro-banner">
                     <h2>🎨 ART COMMISSION</h2>
@@ -248,16 +237,14 @@
                 </div>
             </section>
 
-            <!-- 04. VRChat COMMISSION -->
             <section id="vrchat-commission" class="tab-content">
                 <div class="intro-banner">
                     <h2>🧊 VRChat AVATAR COMMISSION</h2>
                     <p class="intro-text">VRChat 3D 아바타 뚜따 커미션 안내 페이지입니다.</p>
-                    <div class="coming-soon-tag">🚧 추후 개장 예정 준비 중입니다!</div>
+                    <div class="coming-soon-tag">🚧 현재 준비 중인 페이지입니다. 조만간 찾아뵙겠습니다!</div>
                 </div>
             </section>
 
-            <!-- 05. HOW TO ORDER -->
             <section id="contact" class="tab-content">
                 <h2 class="section-title">HOW TO ORDER</h2>
 
@@ -306,20 +293,18 @@
                 </div>
 
                 <div style="margin-top: 20px;">
-                    <a href="https://open.kakao.com/o/sMPEO0Mi" target="_blank" class="contact-btn">💬 오픈카카오톡으로 문의하기</a>
+                    <a href="https://open.kakao.com/o/sMPEO0Mi" target="_blank" class="contact-btn">💬 또는 오픈카카오톡으로 신청 / 문의하기</a>
                 </div>
             </section>
 
         </main>
     </div>
 
-    <!-- 이미지 확대 모달 -->
     <div id="imageModal" class="image-modal" onclick="closeModal()">
         <span class="modal-close">&times;</span>
         <img class="modal-content" id="modalImg" alt="확대 이미지">
     </div>
 
-    <!-- 스크립트 -->
     <script>
         function toggleTheme() {
             const currentTheme = document.documentElement.getAttribute('data-theme');
