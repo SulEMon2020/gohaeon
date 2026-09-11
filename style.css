@@ -1,399 +1,282 @@
 /* ==========================================================================
-   테마 변수 설정 (다크 / 라이트)
+   고해온 | Commission & Portfolio
+   Clean Editorial Theme
+   - index.html 구조 / class / id / JS 호환 유지
+   - 기존 style.css 전체 교체용
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   01. Theme
+   -------------------------------------------------------------------------- */
 :root {
-    --bg-main: #0d0d0e;
+    --bg-main: #0b0b0d;
+    --bg-sidebar: #101012;
     --bg-card: #151518;
-    --bg-sidebar: #111113;
-    --border-color: #242428;
-    --border-hover: #3a3a40;
-    --text-primary: #ececef;
-    --text-secondary: #94949e;
-    --text-muted: #55555e;
+    --bg-card-soft: #121215;
+    --bg-elevated: #1a1a1e;
+
+    --border-color: #27272c;
+    --border-hover: #3a3a42;
+    --border-soft: rgba(255, 255, 255, 0.07);
+
+    --text-primary: #f1f1f3;
+    --text-secondary: #a2a2ac;
+    --text-muted: #696972;
+
     --accent-gold: #e5c158;
-    --accent-red: #e74c3c;
-    --sidebar-width: 260px;
+    --accent-gold-soft: rgba(229, 193, 88, 0.12);
+    --accent-red: #e76559;
+    --accent-red-soft: rgba(231, 101, 89, 0.08);
+
+    --shadow-card: 0 16px 45px rgba(0, 0, 0, 0.18);
+    --shadow-hover: 0 22px 55px rgba(0, 0, 0, 0.28);
+
+    --radius-sm: 10px;
+    --radius-md: 16px;
+    --radius-lg: 22px;
+
+    --sidebar-width: 270px;
+    --content-width: 1120px;
 }
 
 [data-theme="light"] {
-    --bg-main: #f8fafc;
+    --bg-main: #f6f6f4;
+    --bg-sidebar: #ffffff;
     --bg-card: #ffffff;
-    --bg-sidebar: #f1f5f9;
-    --border-color: #e2e8f0;
-    --border-hover: #cbd5e1;
-    --text-primary: #0f172a;
-    --text-secondary: #475569;
-    --text-muted: #94a3b8;
-    --accent-gold: #d97706;
-    --accent-red: #dc2626;
+    --bg-card-soft: #fafaf9;
+    --bg-elevated: #f1f1ee;
+
+    --border-color: #e5e5e1;
+    --border-hover: #d2d2cc;
+    --border-soft: rgba(0, 0, 0, 0.07);
+
+    --text-primary: #171719;
+    --text-secondary: #62626b;
+    --text-muted: #9999a0;
+
+    --accent-gold: #b47b08;
+    --accent-gold-soft: rgba(180, 123, 8, 0.10);
+    --accent-red: #cf4e43;
+    --accent-red-soft: rgba(207, 78, 67, 0.07);
+
+    --shadow-card: 0 14px 40px rgba(24, 24, 20, 0.07);
+    --shadow-hover: 0 20px 50px rgba(24, 24, 20, 0.11);
 }
 
-/* ==========================================================================
-   기본 리셋 및 전역 스타일
-   ========================================================================== */
+/* --------------------------------------------------------------------------
+   02. Reset / Global
+   -------------------------------------------------------------------------- */
 * {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
     font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    letter-spacing: -0.01em;
+    letter-spacing: -0.015em;
+}
+
+html {
+    scroll-behavior: smooth;
 }
 
 body {
-    background-color: var(--bg-main);
+    min-height: 100vh;
+    background:
+        radial-gradient(circle at 82% 8%, rgba(229, 193, 88, 0.035), transparent 28rem),
+        var(--bg-main);
     color: var(--text-primary);
     -webkit-font-smoothing: antialiased;
     transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* 이미지 불법 드래그/선택 방지 */
+button,
+input,
+select,
+textarea {
+    font: inherit;
+}
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+a {
+    color: inherit;
+}
+
 img {
     -webkit-user-drag: none;
     user-select: none;
 }
 
-/* ==========================================================================
-   테마 토글 버튼
-   ========================================================================== */
+::selection {
+    background: var(--accent-gold);
+    color: #111;
+}
+
+:focus-visible {
+    outline: 2px solid var(--accent-gold);
+    outline-offset: 3px;
+}
+
+/* --------------------------------------------------------------------------
+   03. Theme Toggle
+   -------------------------------------------------------------------------- */
 #themeToggle {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 22px;
+    right: 24px;
     z-index: 1001;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    min-height: 40px;
+    padding: 8px 14px;
+
     color: var(--text-primary);
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: bold;
+    background: rgba(20, 20, 22, 0.72);
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+
+    font-size: 0.76rem;
+    font-weight: 700;
+    letter-spacing: 0;
     cursor: pointer;
-    backdrop-filter: blur(5px);
-}
 
-/* ==========================================================================
-   레이아웃 및 사이드바
-   ========================================================================== */
-.layout-container {
-    display: flex;
-    min-height: 100vh;
-}
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
 
-.sidebar {
-    width: var(--sidebar-width);
-    min-width: var(--sidebar-width);
-    padding: 50px 35px;
-    border-right: 1px solid var(--border-color);
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    background: var(--bg-sidebar);
-    z-index: 100;
-}
-
-.profile-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    object-fit: cover;
-    margin-bottom: 20px;
-    border: 1px solid var(--border-color);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
-}
-
-.artist-name {
-    font-size: 1.3rem;
-    font-weight: 800;
-    color: var(--text-primary);
-}
-
-.status-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 700;
-    color: var(--accent-gold);
-    margin-top: 6px;
-    letter-spacing: 1px;
-}
-
-.nav-menu {
-    margin-top: 45px;
-}
-
-.menu-title {
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: var(--text-muted);
-    letter-spacing: 2px;
-    display: block;
-    margin-bottom: 20px;
-}
-
-.nav-menu ul {
-    list-style: none;
-}
-
-.nav-menu li {
-    margin-bottom: 18px;
-}
-
-.nav-menu a {
-    text-decoration: none;
-    color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s ease;
-    display: inline-block;
-}
-
-.nav-menu a:hover,
-.nav-menu a.active {
-    color: var(--text-primary);
-    font-weight: 700;
-    transform: translateX(4px);
-}
-
-.sidebar-footer {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-}
-
-.fanart-notice-sidebar {
-    margin-top: 6px;
-    font-size: 0.68rem;
-    color: var(--text-muted);
-    line-height: 1.4;
-}
-
-/* ==========================================================================
-   메인 콘텐츠
-   ========================================================================== */
-.main-content {
-    margin-left: var(--sidebar-width);
-    flex: 1;
-    padding: 70px 90px;
-    max-width: 980px;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-.section-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 35px;
-    color: var(--text-primary);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 12px;
-    display: inline-block;
-}
-
-.about-card, .intro-banner, .price-box {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    padding: 32px;
-    border-radius: 12px;
-    margin-bottom: 28px;
-}
-
-.about-card h3, .price-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--text-primary);
-    margin-bottom: 16px;
-}
-
-.about-bio, .intro-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.8;
-}
-
-/* SNS 링크 그리드 */
-.sns-link-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-}
-
-.sns-btn {
-    display: flex;
-    flex-direction: column;
-    padding: 18px 20px;
-    background: rgba(255, 255, 255, 0.02);
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.sns-btn:hover {
-    border-color: var(--border-hover);
-    background: rgba(255, 255, 255, 0.05);
-    transform: translateY(-3px);
-}
-
-.sns-icon { font-size: 1.2rem; margin-bottom: 8px; }
-.sns-name { font-size: 0.85rem; font-weight: 700; color: var(--text-primary); }
-.sns-id { font-size: 0.78rem; color: var(--text-muted); margin-top: 4px; }
-
-/* 정보 리스트 */
-.info-list { list-style: none; }
-.info-list li {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-}
-
-/* ==========================================================================
-   포트폴리오 & 갤러리
-   ========================================================================== */
-.portfolio-notice {
-    background: rgba(255,255,255,0.03);
-    border: 1px dashed var(--border-color);
-    padding: 12px 18px;
-    border-radius: 8px;
-    margin-bottom: 24px;
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-}
-
-.gallery-sub-menu, .filter-bar {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-    flex-wrap: wrap;
-}
-
-:root {
-    --bg-main: #0d0d0e;
-    --bg-card: #151518;
-    --bg-sidebar: #111113;
-    --border-color: #242428;
-    --border-hover: #3a3a40;
-    
-    --text-primary: #ececef;
-    --text-secondary: #94949e;
-    --text-muted: #55555e;
-    
-    --accent-gold: #e5c158;
-    --accent-red: #e74c3c;
-    --sidebar-width: 260px;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
-    letter-spacing: -0.01em;
-}
-
-body {
-    background-color: var(--bg-main);
-    color: var(--text-primary);
-    -webkit-font-smoothing: antialiased;
-}
-
-/* ==========================================
-   🌓 다크 / 라이트 모드 전환 버튼 스타일
-========================================== */
-#themeToggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 1000;
-    background-color: rgba(255, 255, 255, 0.1);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    color: #fff;
-    padding: 10px 18px;
-    border-radius: 30px;
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    backdrop-filter: blur(5px);
+    transition:
+        background-color 0.25s ease,
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
 }
 
 #themeToggle:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    border-color: var(--accent-gold);
     transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
 }
 
 [data-theme="light"] #themeToggle {
-    background-color: rgba(0, 0, 0, 0.05);
-    border-color: rgba(0, 0, 0, 0.1);
-    color: #000;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.82);
 }
 
+/* --------------------------------------------------------------------------
+   04. Main Layout
+   -------------------------------------------------------------------------- */
 .layout-container {
     display: flex;
     min-height: 100vh;
 }
 
-/* 사이드바 */
 .sidebar {
-    width: var(--sidebar-width);
-    padding: 50px 35px;
-    border-right: 1px solid var(--border-color);
     position: fixed;
-    height: 100vh;
+    inset: 0 auto 0 0;
+    z-index: 100;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    background: var(--bg-sidebar);
-    z-index: 100;
+
+    width: var(--sidebar-width);
+    min-width: var(--sidebar-width);
+    height: 100vh;
+    padding: 46px 30px 30px;
+
+    background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent 30%),
+        var(--bg-sidebar);
+
+    border-right: 1px solid var(--border-color);
+
+    transition:
+        background-color 0.3s ease,
+        border-color 0.3s ease;
+}
+
+.profile-section {
+    position: relative;
 }
 
 .profile-img {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
+    display: block;
+    width: 86px;
+    height: 86px;
+    margin-bottom: 18px;
+
     object-fit: cover;
-    margin-bottom: 20px;
+    border-radius: 50%;
     border: 1px solid var(--border-color);
-    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+
+    box-shadow:
+        0 0 0 6px var(--accent-gold-soft),
+        0 12px 28px rgba(0, 0, 0, 0.25);
+
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-img:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 0 0 8px var(--accent-gold-soft),
+        0 16px 34px rgba(0, 0, 0, 0.28);
 }
 
 .artist-name {
-    font-size: 1.3rem;
+    color: var(--text-primary);
+    font-size: 1.28rem;
     font-weight: 800;
-    color: #fff;
+    line-height: 1.25;
 }
 
 .status-tag {
-    display: inline-block;
-    font-size: 0.7rem;
-    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+
+    margin-top: 8px;
+
     color: var(--accent-gold);
-    margin-top: 6px;
-    letter-spacing: 1px;
+    font-size: 0.66rem;
+    font-weight: 800;
+    letter-spacing: 1.6px;
 }
 
+.status-tag::before {
+    content: "";
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    box-shadow: 0 0 0 4px var(--accent-gold-soft);
+}
+
+/* --------------------------------------------------------------------------
+   05. Sidebar Navigation
+   -------------------------------------------------------------------------- */
 .nav-menu {
-    margin-top: 45px;
+    margin-top: 46px;
+}
+
+.menu-group {
+    margin-bottom: 34px;
 }
 
 .menu-title {
-    font-size: 0.7rem;
-    font-weight: 800;
-    color: var(--text-muted);
-    letter-spacing: 2px;
     display: block;
-    margin-bottom: 20px;
+    margin-bottom: 13px;
+
+    color: var(--text-muted);
+    font-size: 0.63rem;
+    font-weight: 800;
+    letter-spacing: 2.2px;
+    text-transform: uppercase;
 }
 
 .nav-menu ul {
@@ -401,173 +284,405 @@ body {
 }
 
 .nav-menu li {
-    margin-bottom: 18px;
+    margin-bottom: 3px;
 }
 
 .nav-menu a {
-    text-decoration: none;
+    position: relative;
+
+    display: block;
+    padding: 10px 12px;
+
     color: var(--text-secondary);
-    font-size: 0.9rem;
-    font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-    display: inline-block;
+    text-decoration: none;
+
+    border-radius: 9px;
+
+    font-size: 0.88rem;
+    font-weight: 550;
+
+    transition:
+        color 0.22s ease,
+        background-color 0.22s ease,
+        transform 0.22s ease;
 }
 
-.nav-menu a:hover,
+.nav-menu a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: 2px;
+    height: 0;
+
+    border-radius: 999px;
+    background: var(--accent-gold);
+
+    transform: translateY(-50%);
+    transition: height 0.22s ease;
+}
+
+.nav-menu a:hover {
+    color: var(--text-primary);
+    background: var(--border-soft);
+    transform: translateX(2px);
+}
+
 .nav-menu a.active {
-    color: #fff;
-    font-weight: 700;
-    transform: translateX(4px);
+    color: var(--text-primary);
+    background: var(--accent-gold-soft);
+    font-weight: 750;
+}
+
+.nav-menu a.active::before {
+    height: 18px;
 }
 
 .sidebar-footer {
-    font-size: 0.72rem;
     color: var(--text-muted);
+    font-size: 0.69rem;
+    line-height: 1.55;
 }
 
-/* 📌 팬아트 관련 안내 추가 스타일 */
 .fanart-notice-sidebar {
     margin-top: 6px;
-    font-size: 0.68rem;
     color: var(--text-muted);
-    line-height: 1.4;
+    font-size: 0.65rem;
+    line-height: 1.55;
 }
 
-.portfolio-notice-box {
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px dashed var(--border-color);
-    border-radius: 8px;
-    padding: 12px 18px;
-    margin-bottom: 24px;
-    font-size: 0.82rem;
-    color: var(--text-secondary);
-    line-height: 1.5;
-}
-
-/* 메인 영역 */
+/* --------------------------------------------------------------------------
+   06. Main Content / Tabs
+   -------------------------------------------------------------------------- */
 .main-content {
+    width: calc(100% - var(--sidebar-width));
     margin-left: var(--sidebar-width);
-    flex: 1;
-    padding: 70px 90px;
-    max-width: 980px;
+    padding: 78px clamp(32px, 6vw, 92px) 100px;
 }
 
 .tab-content {
     display: none;
-    animation: fadeIn 0.4s ease;
+    width: min(100%, var(--content-width));
+    margin: 0 auto;
+
+    animation: tabFade 0.32s ease both;
 }
 
 .tab-content.active {
     display: block;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
+@keyframes tabFade {
+    from {
+        opacity: 0;
+        transform: translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 .section-title {
-    font-size: 1.2rem;
-    font-weight: 800;
-    letter-spacing: 2px;
-    margin-bottom: 35px;
-    color: #fff;
+    position: relative;
+
+    display: block;
+    width: 100%;
+    margin-bottom: 34px;
+    padding: 0 0 15px;
+
+    color: var(--text-primary);
     border-bottom: 1px solid var(--border-color);
-    padding-bottom: 12px;
-    display: inline-block;
+
+    font-size: 1.18rem;
+    font-weight: 850;
+    letter-spacing: 2px;
 }
 
-/* 안내 및 가격 박스 */
-.intro-banner {
-    background: var(--bg-card);
+.section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -1px;
+
+    width: 42px;
+    height: 2px;
+
+    background: var(--accent-gold);
+}
+
+/* --------------------------------------------------------------------------
+   07. Shared Cards
+   -------------------------------------------------------------------------- */
+.about-card,
+.intro-banner,
+.price-box,
+.order-box {
+    position: relative;
+
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.018), transparent 55%),
+        var(--bg-card);
+
     border: 1px solid var(--border-color);
-    padding: 35px;
-    border-radius: 12px;
-    margin-bottom: 40px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: var(--radius-md);
+
+    box-shadow: var(--shadow-card);
+
+    transition:
+        border-color 0.25s ease,
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.about-card:hover,
+.price-box:hover,
+.order-box:hover {
+    border-color: var(--border-hover);
+}
+
+.about-card {
+    padding: 30px;
+    margin-bottom: 22px;
+}
+
+.about-card h3,
+.price-header h3,
+.order-box h3 {
+    color: var(--text-primary);
+    font-size: 0.96rem;
+    font-weight: 800;
+}
+
+.about-card h3 {
+    margin-bottom: 15px;
+}
+
+.about-bio,
+.intro-text {
+    color: var(--text-secondary);
+    font-size: 0.89rem;
+    line-height: 1.85;
+}
+
+/* --------------------------------------------------------------------------
+   08. About / SNS
+   -------------------------------------------------------------------------- */
+.sns-link-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.sns-btn {
+    position: relative;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 92px;
+    padding: 17px 18px;
+
+    overflow: hidden;
+
+    background: var(--bg-card-soft);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm);
+
+    text-decoration: none;
+
+    transition:
+        transform 0.25s ease,
+        border-color 0.25s ease,
+        background-color 0.25s ease,
+        box-shadow 0.25s ease;
+}
+
+.sns-btn::after {
+    content: "↗";
+    position: absolute;
+    top: 15px;
+    right: 17px;
+
+    color: var(--text-muted);
+    font-size: 0.8rem;
+
+    opacity: 0;
+    transform: translate(-3px, 3px);
+
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.sns-btn:hover {
+    border-color: var(--accent-gold);
+    background: var(--accent-gold-soft);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+}
+
+.sns-btn:hover::after {
+    opacity: 1;
+    transform: translate(0, 0);
+}
+
+.sns-icon {
+    margin-bottom: 10px;
+    font-size: 1.15rem;
+}
+
+.sns-name {
+    color: var(--text-primary);
+    font-size: 0.83rem;
+    font-weight: 750;
+}
+
+.sns-id {
+    margin-top: 4px;
+    color: var(--text-muted);
+    font-size: 0.74rem;
+}
+
+.info-list {
+    list-style: none;
+}
+
+.info-list li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+
+    padding: 12px 0;
+
+    color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-color);
+
+    font-size: 0.86rem;
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-list li strong {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   09. Intro Banner
+   -------------------------------------------------------------------------- */
+.intro-banner {
+    padding: 34px;
+    margin-bottom: 34px;
+
+    overflow: hidden;
+    border-color: rgba(229, 193, 88, 0.18);
+
+    background:
+        radial-gradient(circle at 100% 0%, var(--accent-gold-soft), transparent 34%),
+        var(--bg-card);
+}
+
+.intro-banner::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+
+    background: var(--accent-gold);
 }
 
 .intro-banner h2 {
-    font-size: 1.15rem;
-    font-weight: 800;
-    margin-bottom: 16px;
-    color: #fff;
-}
+    margin-bottom: 13px;
 
-.intro-text {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    line-height: 1.8;
+    color: var(--text-primary);
+    font-size: 1.12rem;
+    font-weight: 850;
 }
 
 .highlight-badge {
-    display: inline-block;
-    margin-top: 20px;
-    background: rgba(229, 193, 88, 0.1);
-    border: 1px solid var(--accent-gold);
+    display: inline-flex;
+    align-items: center;
+
+    margin-top: 18px;
+    padding: 7px 12px;
+
     color: var(--accent-gold);
-    padding: 6px 14px;
-    font-size: 0.78rem;
-    font-weight: 600;
-    border-radius: 20px;
+    background: var(--accent-gold-soft);
+    border: 1px solid rgba(229, 193, 88, 0.28);
+    border-radius: 999px;
+
+    font-size: 0.72rem;
+    font-weight: 750;
+}
+
+/* --------------------------------------------------------------------------
+   10. Price Sections
+   -------------------------------------------------------------------------- */
+.price-section {
+    margin-bottom: 24px;
 }
 
 .price-box {
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    margin-bottom: 28px;
-    padding: 32px;
-    background: var(--bg-card);
-    transition: border-color 0.3s;
-}
-
-.price-box:hover {
-    border-color: var(--border-hover);
+    padding: 28px;
+    margin-bottom: 20px;
 }
 
 .price-header {
     display: flex;
-    justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 16px;
-    margin-bottom: 24px;
-}
+    justify-content: space-between;
+    gap: 20px;
 
-.price-header h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    color: #fff;
+    margin-bottom: 22px;
+    padding-bottom: 15px;
+
+    border-bottom: 1px solid var(--border-color);
 }
 
 .bg-badge {
-    font-size: 0.78rem;
+    flex-shrink: 0;
+
+    padding: 5px 10px;
+
     color: var(--text-secondary);
-    background: #1e1e22;
-    padding: 4px 12px;
-    border-radius: 20px;
+    background: var(--bg-elevated);
     border: 1px solid var(--border-color);
+    border-radius: 999px;
+
+    font-size: 0.69rem;
+    font-weight: 650;
 }
 
 .price-table {
-    display: flex;
-    gap: 30px;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
 }
 
 .price-column {
-    flex: 1;
+    min-width: 0;
+    padding: 19px;
+
+    background: var(--bg-card-soft);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
 }
 
 .price-column h4 {
-    font-size: 0.8rem;
-    color: var(--text-muted);
     margin-bottom: 14px;
+
+    color: var(--text-muted);
+    font-size: 0.72rem;
+    font-weight: 800;
     letter-spacing: 1px;
 }
 
 .dc-tag {
     color: var(--accent-gold);
-    font-weight: 700;
+    font-weight: 750;
 }
 
 .price-column ul {
@@ -577,61 +692,109 @@ body {
 .price-column li {
     display: flex;
     justify-content: space-between;
-    font-size: 0.9rem;
-    margin-bottom: 12px;
+    align-items: baseline;
+    gap: 16px;
+
+    padding: 10px 0;
+
     color: var(--text-secondary);
+    border-bottom: 1px solid var(--border-soft);
+
+    font-size: 0.84rem;
+    line-height: 1.45;
+}
+
+.price-column li:last-child {
+    border-bottom: none;
 }
 
 .price-column li strong {
+    flex-shrink: 0;
     color: var(--text-primary);
-    font-weight: 600;
+    font-size: 0.88rem;
+    font-weight: 750;
 }
 
 .simple-list {
-    list-style-position: inside;
-    font-size: 0.9rem;
+    padding-left: 18px;
     color: var(--text-secondary);
+    font-size: 0.86rem;
+    line-height: 1.7;
 }
 
 .simple-list li {
-    margin-bottom: 12px;
+    margin-bottom: 8px;
+}
+
+.simple-list li:last-child {
+    margin-bottom: 0;
 }
 
 .sub-note {
-    font-size: 0.8rem;
+    margin-top: 15px;
     color: var(--text-muted);
-    margin-top: 18px;
+    font-size: 0.75rem;
+    line-height: 1.6;
 }
 
-/* 갤러리 영역 */
+/* --------------------------------------------------------------------------
+   11. Portfolio Navigation
+   -------------------------------------------------------------------------- */
+.portfolio-notice,
+.portfolio-notice-box {
+    margin-bottom: 20px;
+    padding: 13px 16px;
+
+    color: var(--text-secondary);
+    background: var(--bg-card-soft);
+    border: 1px dashed var(--border-color);
+    border-radius: 10px;
+
+    font-size: 0.78rem;
+    line-height: 1.6;
+}
+
 .gallery-sub-menu {
     display: flex;
-    gap: 12px;
-    margin-bottom: 30px;
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 14px;
+    gap: 6px;
+
+    margin-bottom: 22px;
+    padding: 5px;
+
+    background: var(--bg-card-soft);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
 }
 
 .sub-btn {
-    background: none;
-    border: none;
-    font-size: 0.9rem;
-    font-weight: 500;
+    flex: 1;
+
+    padding: 9px 14px;
+
     color: var(--text-secondary);
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+
+    font-size: 0.8rem;
+    font-weight: 650;
+
     cursor: pointer;
-    padding: 8px 18px;
-    border-radius: 20px;
-    transition: all 0.3s;
+
+    transition:
+        color 0.22s ease,
+        background-color 0.22s ease,
+        box-shadow 0.22s ease;
 }
 
 .sub-btn:hover {
-    color: #fff;
+    color: var(--text-primary);
 }
 
 .sub-btn.active {
-    background: #fff;
-    color: #000;
-    font-weight: 700;
+    color: var(--text-primary);
+    background: var(--bg-card);
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.13);
 }
 
 .sub-gallery {
@@ -644,327 +807,623 @@ body {
 
 .filter-bar {
     display: flex;
-    gap: 10px;
-    margin-bottom: 35px;
+    flex-wrap: wrap;
+    gap: 7px;
+
+    margin-bottom: 20px;
 }
 
 .filter-btn {
-    background: #18181c;
-    border: 1px solid var(--border-color);
-    font-size: 0.82rem;
-    font-weight: 500;
+    padding: 7px 13px;
+
     color: var(--text-secondary);
-    padding: 8px 20px;
-    border-radius: 30px;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+
+    font-size: 0.74rem;
+    font-weight: 650;
+
     cursor: pointer;
-    transition: all 0.3s ease;
+
+    transition:
+        color 0.22s ease,
+        background-color 0.22s ease,
+        border-color 0.22s ease,
+        transform 0.22s ease;
 }
 
 .filter-btn:hover {
+    color: var(--text-primary);
     border-color: var(--border-hover);
-    color: #fff;
+    transform: translateY(-1px);
 }
 
 .filter-btn.active {
-    background: #fff;
-    color: #000;
-    border-color: #fff;
-    font-weight: 700;
+    color: #111;
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    font-weight: 800;
 }
 
-/* ==========================================
-   갤러리 격자(Grid) 배치 & 모달 팝업 스타일
-========================================== */
-
-/* 갤러리 그리드: 공간을 채우면서 여러 개가 깔끔하게 배열됨 */
+/* --------------------------------------------------------------------------
+   12. Gallery
+   -------------------------------------------------------------------------- */
 .gallery-scroll-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 16px;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 13px;
 }
 
 .gallery-card {
+    position: relative;
+
     width: 100%;
     aspect-ratio: 1 / 1;
+
     overflow: hidden;
-    border-radius: 10px;
-    border: 1px solid var(--border-color);
+
     background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+
     cursor: pointer;
-    transition: transform 0.3s ease, border-color 0.3s ease;
+
+    box-shadow: 0 7px 20px rgba(0, 0, 0, 0.08);
+
+    transition:
+        transform 0.28s ease,
+        border-color 0.28s ease,
+        box-shadow 0.28s ease;
+}
+
+.gallery-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+
+    background: linear-gradient(
+        135deg,
+        rgba(255, 255, 255, 0.10),
+        transparent 35%,
+        transparent 70%,
+        rgba(0, 0, 0, 0.16)
+    );
+
+    opacity: 0;
+    pointer-events: none;
+
+    transition: opacity 0.28s ease;
 }
 
 .gallery-card:hover {
-    transform: translateY(-4px);
     border-color: var(--border-hover);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-hover);
+}
+
+.gallery-card:hover::after {
+    opacity: 1;
 }
 
 .gallery-card img {
+    display: block;
     width: 100%;
     height: 100%;
+
     object-fit: cover;
-    display: block;
-    transition: transform 0.3s ease;
+
+    transition: transform 0.45s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 
 .gallery-card:hover img {
-    transform: scale(1.05);
+    transform: scale(1.045);
 }
 
-/* --- 클릭 시 나타나는 모달(확대) 창 --- */
+/* --------------------------------------------------------------------------
+   13. Image Modal
+   -------------------------------------------------------------------------- */
 .image-modal {
-    display: none;
     position: fixed;
-    z-index: 1000;
-    left: 0;
-    top: 0;
+    inset: 0;
+    z-index: 2000;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(5px);
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
+    padding: 28px;
+
+    background: rgba(5, 5, 7, 0.88);
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 }
 
 .image-modal.active {
     display: flex;
-    animation: fadeIn 0.25s ease;
+    animation: modalFade 0.25s ease both;
+}
+
+@keyframes modalFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .modal-content {
-    max-width: 90%;
-    max-height: 90vh;
+    display: block;
+
+    max-width: min(94vw, 1200px);
+    max-height: 88vh;
+
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55);
+
+    animation: modalImageIn 0.28s ease both;
+}
+
+@keyframes modalImageIn {
+    from {
+        opacity: 0;
+        transform: scale(0.97);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
 }
 
 .modal-close {
     position: absolute;
     top: 20px;
-    right: 30px;
+    right: 26px;
+
+    width: 44px;
+    height: 44px;
+
+    display: grid;
+    place-items: center;
+
     color: #fff;
-    font-size: 35px;
-    font-weight: bold;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.13);
+    border-radius: 50%;
+
+    font-size: 1.7rem;
+    font-weight: 300;
+    line-height: 1;
+
     cursor: pointer;
     user-select: none;
+
+    transition:
+        background-color 0.2s ease,
+        transform 0.2s ease;
 }
 
-/* --- ABOUT & SNS 전용 디자인 --- */
-.about-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border-color);
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 28px;
+.modal-close:hover {
+    background: rgba(255, 255, 255, 0.16);
+    transform: rotate(5deg);
 }
 
-.about-card h3 {
-    font-size: 0.95rem;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
-}
-
-.about-bio {
-    font-size: 0.92rem;
-    color: var(--text-secondary);
-    line-height: 1.8;
-}
-
-/* SNS 버튼 그리드 세로/가로 배치 */
-.sns-link-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 14px;
-}
-
-.sns-btn {
-    display: flex;
-    flex-direction: column;
-    padding: 18px 20px;
-    background: #1a1a1e;
-    border: 1px solid var(--border-color);
-    border-radius: 10px;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.sns-btn:hover {
-    border-color: var(--border-hover);
-    background: #222227;
-    transform: translateY(-3px);
-}
-
-.sns-icon {
-    font-size: 1.2rem;
-    margin-bottom: 8px;
-}
-
-.sns-name {
-    font-size: 0.85rem;
-    font-weight: 700;
-    color: #fff;
-}
-
-.sns-id {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin-top: 4px;
-}
-
-.info-list {
-    list-style: none;
-}
-
-.info-list li {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.9rem;
-    padding: 10px 0;
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-secondary);
-}
-
-.info-list li:last-child {
-    border-bottom: none;
-}
-
-.info-list li strong {
-    color: #fff;
-}
-
-/* ORDER & CONTACT */
+/* --------------------------------------------------------------------------
+   14. Order / Contact
+   -------------------------------------------------------------------------- */
 .order-box {
-    border: 1px solid var(--border-color);
-    background: var(--bg-card);
-    border-radius: 12px;
-    padding: 32px;
-    margin-bottom: 28px;
+    padding: 28px;
+    margin-bottom: 22px;
 }
 
 .order-box h3 {
-    font-size: 1rem;
-    margin-bottom: 20px;
-    color: #fff;
+    margin-bottom: 18px;
 }
 
 .step-container {
-    display: flex;
-    gap: 14px;
-    background: #111114;
-    padding: 22px;
-    border-radius: 8px;
+    position: relative;
+
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 0;
+
+    padding: 20px 14px;
+
+    background: var(--bg-card-soft);
     border: 1px solid var(--border-color);
-    overflow-x: auto;
+    border-radius: 13px;
 }
 
 .step-item {
-    flex: 1;
-    min-width: 85px;
+    position: relative;
+    z-index: 1;
+
+    min-width: 0;
+    padding: 0 7px;
+
     text-align: center;
 }
 
+.step-item:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    z-index: -1;
+
+    top: 14px;
+    left: calc(50% + 18px);
+    width: calc(100% - 36px);
+    height: 1px;
+
+    background: var(--border-hover);
+}
+
 .step-item span {
-    font-size: 0.7rem;
-    font-weight: 800;
+    display: grid;
+    place-items: center;
+
+    width: 29px;
+    height: 29px;
+    margin: 0 auto;
+
     color: var(--accent-gold);
-    display: block;
+    background: var(--accent-gold-soft);
+    border: 1px solid rgba(229, 193, 88, 0.28);
+    border-radius: 50%;
+
+    font-size: 0.64rem;
+    font-weight: 850;
 }
 
 .step-item p {
-    font-size: 0.85rem;
-    font-weight: 600;
-    margin-top: 6px;
+    margin-top: 9px;
+
     color: var(--text-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    line-height: 1.4;
+    word-break: keep-all;
 }
 
 .step-desc {
-    font-size: 0.8rem;
+    margin-top: 13px;
     color: var(--text-muted);
-    margin-top: 14px;
+    font-size: 0.73rem;
+    line-height: 1.6;
 }
 
+/* --------------------------------------------------------------------------
+   15. Notices / FAQ
+   -------------------------------------------------------------------------- */
 .notice-card {
+    margin-bottom: 34px;
+    padding: 20px 22px;
+
+    background: var(--accent-red-soft);
+    border: 1px solid rgba(231, 101, 89, 0.16);
     border-left: 3px solid var(--accent-red);
-    padding: 22px 26px;
-    background: rgba(231, 76, 60, 0.05);
-    border-radius: 0 12px 12px 0;
-    margin-bottom: 40px;
-    border-top: 1px solid rgba(231, 76, 60, 0.1);
-    border-right: 1px solid rgba(231, 76, 60, 0.1);
-    border-bottom: 1px solid rgba(231, 76, 60, 0.1);
+    border-radius: 0 13px 13px 0;
 }
 
 .notice-card h4 {
+    margin-bottom: 9px;
     color: var(--accent-red);
-    font-size: 0.9rem;
-    margin-bottom: 10px;
+    font-size: 0.84rem;
+    font-weight: 800;
 }
 
 .notice-card ul {
     padding-left: 18px;
-    font-size: 0.88rem;
+
     color: var(--text-secondary);
-    line-height: 1.7;
+    font-size: 0.82rem;
+    line-height: 1.75;
+}
+
+.faq-item {
+    margin-bottom: 9px;
+
+    overflow: hidden;
+
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 11px;
+}
+
+.faq-item summary {
+    position: relative;
+
+    display: flex;
+    align-items: center;
+
+    padding: 16px 42px 16px 17px;
+
+    color: var(--text-primary);
+    font-size: 0.84rem;
+    font-weight: 700;
+
+    cursor: pointer;
+    list-style: none;
+
+    transition: background-color 0.22s ease;
+}
+
+.faq-item summary::-webkit-details-marker {
+    display: none;
+}
+
+.faq-item summary::after {
+    content: "+";
+    position: absolute;
+    right: 17px;
+    top: 50%;
+
+    color: var(--text-muted);
+    font-size: 1.05rem;
+    font-weight: 300;
+
+    transform: translateY(-50%);
+    transition: transform 0.22s ease, color 0.22s ease;
+}
+
+.faq-item[open] summary {
+    background: var(--bg-card-soft);
+}
+
+.faq-item[open] summary::after {
+    color: var(--accent-gold);
+    transform: translateY(-50%) rotate(45deg);
+}
+
+.faq-item p {
+    padding: 0 17px 17px;
+
+    color: var(--text-secondary);
+    font-size: 0.81rem;
+    line-height: 1.75;
+}
+
+/* --------------------------------------------------------------------------
+   16. Form
+   -------------------------------------------------------------------------- */
+.direct-form-group {
+    margin-bottom: 17px;
+}
+
+.direct-form-group label {
+    display: block;
+    margin-bottom: 7px;
+
+    color: var(--text-primary);
+    font-size: 0.76rem;
+    font-weight: 750;
+}
+
+.direct-form-group input,
+.direct-form-group select,
+.direct-form-group textarea {
+    width: 100%;
+    padding: 12px 13px;
+
+    color: var(--text-primary);
+    background: var(--bg-card-soft);
+    border: 1px solid var(--border-color);
+    border-radius: 9px;
+
+    font-size: 0.82rem;
+    line-height: 1.5;
+
+    outline: none;
+
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease,
+        background-color 0.2s ease;
+}
+
+.direct-form-group input::placeholder,
+.direct-form-group textarea::placeholder {
+    color: var(--text-muted);
+}
+
+.direct-form-group input:focus,
+.direct-form-group select:focus,
+.direct-form-group textarea:focus {
+    border-color: var(--accent-gold);
+    box-shadow: 0 0 0 3px var(--accent-gold-soft);
+}
+
+.direct-form-group textarea {
+    min-height: 150px;
+    resize: vertical;
+}
+
+.direct-form-group select {
+    cursor: pointer;
+}
+
+[data-theme="dark"] .direct-form-group select option {
+    background: #151518;
+    color: #f1f1f3;
+}
+
+.submit-btn {
+    width: 100%;
+    min-height: 48px;
+    margin-top: 5px;
+
+    color: #111;
+    background: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
+    border-radius: 10px;
+
+    font-size: 0.84rem;
+    font-weight: 850;
+
+    cursor: pointer;
+
+    box-shadow: 0 10px 24px rgba(229, 193, 88, 0.12);
+
+    transition:
+        transform 0.22s ease,
+        filter 0.22s ease,
+        box-shadow 0.22s ease;
+}
+
+.submit-btn:hover {
+    filter: brightness(1.06);
+    transform: translateY(-2px);
+    box-shadow: 0 14px 30px rgba(229, 193, 88, 0.18);
 }
 
 .contact-btn {
     display: block;
-    text-align: center;
-    background: #fff;
-    color: #000;
-    text-decoration: none;
-    padding: 22px;
+
+    width: 100%;
+    padding: 18px 20px;
+
+    color: #111;
+    background: var(--accent-gold);
+    border: 1px solid var(--accent-gold);
     border-radius: 12px;
-    font-weight: 800;
-    font-size: 0.95rem;
-    letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+
+    text-align: center;
+    text-decoration: none;
+
+    font-size: 0.86rem;
+    font-weight: 850;
+    letter-spacing: 0.2px;
+
+    box-shadow: 0 12px 28px rgba(229, 193, 88, 0.12);
+
+    transition:
+        transform 0.22s ease,
+        filter 0.22s ease,
+        box-shadow 0.22s ease;
 }
 
 .contact-btn:hover {
-    background: var(--accent-gold);
-    box-shadow: 0 12px 30px rgba(229, 193, 88, 0.2);
+    filter: brightness(1.06);
     transform: translateY(-2px);
+    box-shadow: 0 16px 34px rgba(229, 193, 88, 0.18);
 }
 
-/* ==========================================
-   📱 모바일 화면 최적화 (화면 너비 768px 이하)
-   ========================================== */
-@media (max-width: 768px) {
-    .layout-container {
-        flex-direction: column;
-        padding: 12px;
+/* --------------------------------------------------------------------------
+   17. Existing Inline Form Elements
+   -------------------------------------------------------------------------- */
+#formContent {
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    overflow-x: auto;
+}
+
+#formContent::-webkit-scrollbar {
+    height: 6px;
+}
+
+#formContent::-webkit-scrollbar-thumb {
+    background: var(--border-hover);
+    border-radius: 999px;
+}
+
+/* --------------------------------------------------------------------------
+   18. Tablet
+   -------------------------------------------------------------------------- */
+@media (max-width: 1080px) {
+    :root {
+        --sidebar-width: 235px;
     }
 
     .sidebar {
-        width: 100%;
-        height: auto;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .main-content {
+        padding-left: 42px;
+        padding-right: 42px;
+    }
+
+    .gallery-scroll-list {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 10px;
+    }
+
+    .step-container {
+        overflow-x: auto;
+    }
+
+    .step-item {
+        min-width: 105px;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   19. Mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 768px) {
+    :root {
+        --sidebar-width: 100%;
+    }
+
+    body {
+        background: var(--bg-main);
+    }
+
+    .layout-container {
+        display: block;
+    }
+
+    .sidebar {
         position: relative;
-        padding: 20px 16px;
-        margin-bottom: 20px;
+        inset: auto;
+
+        width: 100%;
+        min-width: 0;
+        height: auto;
+
+        padding: 24px 18px 17px;
+
         border-right: none;
         border-bottom: 1px solid var(--border-color);
+
+        border-radius: 0;
     }
 
     .profile-section {
-        margin-bottom: 15px;
+        padding-right: 72px;
     }
 
     .profile-img {
-        width: 80px;
-        height: 80px;
+        width: 72px;
+        height: 72px;
+        margin-bottom: 13px;
+    }
+
+    .artist-name {
+        font-size: 1.14rem;
+    }
+
+    .nav-menu {
+        margin-top: 24px;
+    }
+
+    .menu-group {
+        margin-bottom: 14px;
+    }
+
+    .menu-title {
+        margin-bottom: 8px;
+        font-size: 0.59rem;
     }
 
     .nav-menu ul {
         display: flex;
         flex-wrap: wrap;
-        gap: 8px;
-        justify-content: center;
+        gap: 5px;
     }
 
     .nav-menu li {
@@ -972,10 +1431,21 @@ body {
     }
 
     .nav-menu a {
-        padding: 8px 12px;
-        font-size: 0.85rem;
-        background: rgba(255, 255, 255, 0.05);
+        padding: 8px 11px;
+
+        background: var(--bg-card-soft);
+        border: 1px solid var(--border-color);
         border-radius: 8px;
+
+        font-size: 0.76rem;
+    }
+
+    .nav-menu a::before {
+        display: none;
+    }
+
+    .nav-menu a.active {
+        border-color: rgba(229, 193, 88, 0.28);
     }
 
     .sidebar-footer {
@@ -983,83 +1453,206 @@ body {
     }
 
     .main-content {
+        width: 100%;
         margin-left: 0;
-        padding: 0;
+        padding: 30px 16px 60px;
     }
 
-    .section-title {
-        font-size: 1.4rem;
-        margin-bottom: 16px;
-    }
-
-    .price-table {
-        flex-direction: column;
-        gap: 16px;
-    }
-
-    .price-column {
+    .tab-content {
         width: 100%;
     }
 
-    .gallery-scroll-list {
-        grid-template-columns: repeat(2, 1fr) !important;
-        gap: 10px !important;
+    .section-title {
+        margin-bottom: 24px;
+        font-size: 1.02rem;
+    }
+
+    .about-card,
+    .intro-banner,
+    .price-box,
+    .order-box {
+        padding: 21px;
+        border-radius: 14px;
     }
 
     .sns-link-grid {
         grid-template-columns: 1fr;
     }
 
+    .price-table {
+        grid-template-columns: 1fr;
+        gap: 9px;
+    }
+
+    .price-header {
+        align-items: flex-start;
+        flex-direction: column;
+        gap: 9px;
+    }
+
+    .gallery-sub-menu {
+        overflow-x: auto;
+    }
+
+    .sub-btn {
+        flex: 0 0 auto;
+        min-width: 72px;
+    }
+
+    .gallery-scroll-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+    }
+
+    .gallery-card {
+        border-radius: 9px;
+    }
+
     .step-container {
         display: flex;
         flex-direction: column;
-        gap: 10px;
+        gap: 7px;
+        padding: 10px;
+        overflow: visible;
     }
 
     .step-item {
-        width: 100%;
         display: flex;
         align-items: center;
-        justify-content: flex-start;
-        padding: 12px 16px;
-        background: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
+        gap: 12px;
+
+        min-width: 0;
+        width: 100%;
+        padding: 11px 12px;
+
+        text-align: left;
+
+        background: var(--bg-card);
+        border: 1px solid var(--border-color);
         border-radius: 10px;
-        position: relative;
+    }
+
+    .step-item:not(:last-child)::after {
+        content: "↓";
+
+        top: auto;
+        left: 50%;
+        bottom: -12px;
+
+        width: auto;
+        height: auto;
+
+        color: var(--text-muted);
+        background: var(--bg-card-soft);
+
+        transform: translateX(-50%);
     }
 
     .step-item span {
-        margin-right: 12px;
-        font-weight: bold;
-        color: #ffb703;
+        flex: 0 0 auto;
+        margin: 0;
     }
 
     .step-item p {
         margin: 0;
-        font-size: 0.95rem;
+        font-size: 0.79rem;
     }
 
-    .step-item:not(:last-child)::after {
-        content: '↓';
-        position: absolute;
-        bottom: -18px;
-        left: 50%;
-        transform: translateX(-50%);
-        color: rgba(255, 255, 255, 0.4);
-        font-size: 0.8rem;
+    .notice-card {
+        padding: 17px 18px;
+        margin-bottom: 24px;
+    }
+
+    .modal-close {
+        top: 13px;
+        right: 13px;
+        width: 40px;
+        height: 40px;
+    }
+
+    .image-modal {
+        padding: 16px;
+    }
+
+    .modal-content {
+        max-width: 96vw;
+        max-height: 84vh;
+    }
+
+    #themeToggle {
+        top: 14px;
+        right: 14px;
+        min-height: 36px;
+        padding: 7px 11px;
+        font-size: 0.7rem;
     }
 
     #formContent {
         font-size: 0.8rem !important;
         padding: 12px !important;
     }
+}
 
-    /* 모바일 환경에서 모드 버튼 위치 미세 조정 */
-    #themeToggle {
-        top: 12px;
-        right: 12px;
-        padding: 6px 12px;
-        font-size: 0.75rem;
+/* --------------------------------------------------------------------------
+   20. Small Mobile
+   -------------------------------------------------------------------------- */
+@media (max-width: 480px) {
+    .main-content {
+        padding: 26px 12px 50px;
+    }
+
+    .about-card,
+    .intro-banner,
+    .price-box,
+    .order-box {
+        padding: 18px;
+    }
+
+    .intro-banner h2 {
+        font-size: 1rem;
+    }
+
+    .about-bio,
+    .intro-text {
+        font-size: 0.84rem;
+    }
+
+    .price-column {
+        padding: 15px;
+    }
+
+    .price-column li {
+        font-size: 0.79rem;
+    }
+
+    .price-column li strong {
+        font-size: 0.82rem;
+    }
+
+    .gallery-scroll-list {
+        gap: 7px;
+    }
+
+    .portfolio-notice,
+    .portfolio-notice-box {
+        padding: 11px 13px;
+        font-size: 0.72rem;
     }
 }
+
+/* --------------------------------------------------------------------------
+   21. Reduced Motion
+   -------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
 }
