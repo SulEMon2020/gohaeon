@@ -1096,21 +1096,22 @@ img {
 }
 
 /* --------------------------------------------------------------------------
+/* --------------------------------------------------------------------------
    15. Notices / FAQ
    -------------------------------------------------------------------------- */
 .notice-card {
     margin-bottom: 34px;
     padding: 20px 22px;
 
-    background: var(--accent-red-soft);
-    border: 1px solid rgba(231, 101, 89, 0.16);
-    border-left: 3px solid var(--accent-red);
+    background: rgba(229, 193, 88, 0.08);
+    border: 1px solid rgba(229, 193, 88, 0.16);
+    border-left: 3px solid var(--accent-gold);
     border-radius: 0 13px 13px 0;
 }
 
 .notice-card h4 {
     margin-bottom: 9px;
-    color: var(--accent-red);
+    color: var(--accent-gold);
     font-size: 0.84rem;
     font-weight: 800;
 }
