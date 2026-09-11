@@ -1,0 +1,763 @@
+:root {
+    --bg-main: #0d0d0e;
+    --bg-card: #151518;
+    --bg-sidebar: #111113;
+    --border-color: #242428;
+    --border-hover: #3a3a40;
+    
+    --text-primary: #ececef;
+    --text-secondary: #94949e;
+    --text-muted: #55555e;
+    
+    --accent-gold: #e5c158;
+    --accent-red: #e74c3c;
+    --sidebar-width: 260px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    letter-spacing: -0.01em;
+}
+
+body {
+    background-color: var(--bg-main);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+}
+
+.layout-container {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* 사이드바 */
+.sidebar {
+    width: var(--sidebar-width);
+    padding: 50px 35px;
+    border-right: 1px solid var(--border-color);
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: var(--bg-sidebar);
+    z-index: 100;
+}
+
+.profile-img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+    border: 1px solid var(--border-color);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
+
+.artist-name {
+    font-size: 1.3rem;
+    font-weight: 800;
+    color: #fff;
+}
+
+.status-tag {
+    display: inline-block;
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--accent-gold);
+    margin-top: 6px;
+    letter-spacing: 1px;
+}
+
+.nav-menu {
+    margin-top: 45px;
+}
+
+.menu-title {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+    display: block;
+    margin-bottom: 20px;
+}
+
+.nav-menu ul {
+    list-style: none;
+}
+
+.nav-menu li {
+    margin-bottom: 18px;
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    display: inline-block;
+}
+
+.nav-menu a:hover,
+.nav-menu a.active {
+    color: #fff;
+    font-weight: 700;
+    transform: translateX(4px);
+}
+
+.sidebar-footer {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+/* 메인 영역 */
+.main-content {
+    margin-left: var(--sidebar-width);
+    flex: 1;
+    padding: 70px 90px;
+    max-width: 980px;
+}
+
+.tab-content {
+    display: none;
+    animation: fadeIn 0.4s ease;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+    font-size: 1.2rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    margin-bottom: 35px;
+    color: #fff;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 12px;
+    display: inline-block;
+}
+
+/* 안내 및 가격 박스 */
+.intro-banner {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    padding: 35px;
+    border-radius: 12px;
+    margin-bottom: 40px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.intro-banner h2 {
+    font-size: 1.15rem;
+    font-weight: 800;
+    margin-bottom: 16px;
+    color: #fff;
+}
+
+.intro-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+.highlight-badge {
+    display: inline-block;
+    margin-top: 20px;
+    background: rgba(229, 193, 88, 0.1);
+    border: 1px solid var(--accent-gold);
+    color: var(--accent-gold);
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    border-radius: 20px;
+}
+
+.price-box {
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    margin-bottom: 28px;
+    padding: 32px;
+    background: var(--bg-card);
+    transition: border-color 0.3s;
+}
+
+.price-box:hover {
+    border-color: var(--border-hover);
+}
+
+.price-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 16px;
+    margin-bottom: 24px;
+}
+
+.price-header h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.bg-badge {
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    background: #1e1e22;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+}
+
+.price-table {
+    display: flex;
+    gap: 30px;
+}
+
+.price-column {
+    flex: 1;
+}
+
+.price-column h4 {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-bottom: 14px;
+    letter-spacing: 1px;
+}
+
+.dc-tag {
+    color: var(--accent-gold);
+    font-weight: 700;
+}
+
+.price-column ul {
+    list-style: none;
+}
+
+.price-column li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    color: var(--text-secondary);
+}
+
+.price-column li strong {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+.simple-list {
+    list-style-position: inside;
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+}
+
+.simple-list li {
+    margin-bottom: 12px;
+}
+
+.sub-note {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 18px;
+}
+
+/* 갤러리 영역 */
+.gallery-sub-menu {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+}
+
+.sub-btn {
+    background: none;
+    border: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    cursor: pointer;
+    padding: 8px 18px;
+    border-radius: 20px;
+    transition: all 0.3s;
+}
+
+.sub-btn:hover {
+    color: #fff;
+}
+
+.sub-btn.active {
+    background: #fff;
+    color: #000;
+    font-weight: 700;
+}
+
+.sub-gallery {
+    display: none;
+}
+
+.sub-gallery.active {
+    display: block;
+}
+
+.filter-bar {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 35px;
+}
+
+.filter-btn {
+    background: #18181c;
+    border: 1px solid var(--border-color);
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-secondary);
+    padding: 8px 20px;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.filter-btn:hover {
+    border-color: var(--border-hover);
+    color: #fff;
+}
+
+.filter-btn.active {
+    background: #fff;
+    color: #000;
+    border-color: #fff;
+    font-weight: 700;
+}
+
+
+/* ==========================================
+   갤러리 격자(Grid) 배치 & 모달 팝업 스타일
+========================================== */
+
+/* 갤러리 그리드: 공간을 채우면서 여러 개가 깔끔하게 배열됨 */
+.gallery-scroll-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); /* 화면 크기에 맞춰 빈공간 없이 채움 */
+    gap: 16px;
+}
+
+.gallery-card {
+    width: 100%;
+    aspect-ratio: 1 / 1;      /* 갤러리 카드들을 일정한 정사각형 비율로 고정 */
+    overflow: hidden;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    cursor: pointer;           /* 클릭 가능하게 마우스 커서 변경 */
+    transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+.gallery-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--border-hover);
+}
+
+.gallery-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;         /* 카드 크기에 맞게 깔끔하게 크롭 처리 */
+    display: block;
+    transition: transform 0.3s ease;
+}
+
+.gallery-card:hover img {
+    transform: scale(1.05);    /* 호버 시 살짝 확대 효과 */
+}
+
+/* --- 클릭 시 나타나는 모달(확대) 창 --- */
+.image-modal {
+    display: none;             /* 기본 숨김 */
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(5px);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.image-modal.active {
+    display: flex;             /* 클릭 시 노출 */
+    animation: fadeIn 0.25s ease;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 90vh;
+    object-fit: contain;       /* 원본 비율 그대로 크게 보임 */
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.modal-close {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    user-select: none;
+}
+
+/* --- ABOUT & SNS 전용 디자인 --- */
+.about-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 28px;
+}
+
+.about-card h3 {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.about-bio {
+    font-size: 0.92rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+}
+
+/* SNS 버튼 그리드 세로/가로 배치 */
+.sns-link-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 14px;
+}
+
+.sns-btn {
+    display: flex;
+    flex-direction: column;
+    padding: 18px 20px;
+    background: #1a1a1e;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.sns-btn:hover {
+    border-color: var(--border-hover);
+    background: #222227;
+    transform: translateY(-3px);
+}
+
+.sns-icon {
+    font-size: 1.2rem;
+    margin-bottom: 8px;
+}
+
+.sns-name {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #fff;
+}
+
+.sns-id {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-top: 4px;
+}
+
+.info-list {
+    list-style: none;
+}
+
+.info-list li {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.9rem;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-secondary);
+}
+
+.info-list li:last-child {
+    border-bottom: none;
+}
+
+.info-list li strong {
+    color: #fff;
+}
+
+/* ORDER & CONTACT */
+.order-box {
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    border-radius: 12px;
+    padding: 32px;
+    margin-bottom: 28px;
+}
+
+.order-box h3 {
+    font-size: 1rem;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.step-container {
+    display: flex;
+    gap: 14px;
+    background: #111114;
+    padding: 22px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    overflow-x: auto;
+}
+
+.step-item {
+    flex: 1;
+    min-width: 85px;
+    text-align: center;
+}
+
+.step-item span {
+    font-size: 0.7rem;
+    font-weight: 800;
+    color: var(--accent-gold);
+    display: block;
+}
+
+.step-item p {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-top: 6px;
+    color: var(--text-primary);
+}
+
+.step-desc {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 14px;
+}
+
+.notice-card {
+    border-left: 3px solid var(--accent-red);
+    padding: 22px 26px;
+    background: rgba(231, 76, 60, 0.05);
+    border-radius: 0 12px 12px 0;
+    margin-bottom: 40px;
+    border-top: 1px solid rgba(231, 76, 60, 0.1);
+    border-right: 1px solid rgba(231, 76, 60, 0.1);
+    border-bottom: 1px solid rgba(231, 76, 60, 0.1);
+}
+
+.notice-card h4 {
+    color: var(--accent-red);
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+
+.notice-card ul {
+    padding-left: 18px;
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.7;
+}
+
+.contact-btn {
+    display: block;
+    text-align: center;
+    background: #fff;
+    color: #000;
+    text-decoration: none;
+    padding: 22px;
+    border-radius: 12px;
+    font-weight: 800;
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 25px rgba(255,255,255,0.1);
+}
+
+.contact-btn:hover {
+    background: var(--accent-gold);
+    box-shadow: 0 12px 30px rgba(229, 193, 88, 0.2);
+    transform: translateY(-2px);
+}
+
+/* 모바일 대응 */
+@media (max-width: 768px) {
+    .layout-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+        border-right: none;
+        border-bottom: 1px solid var(--border-color);
+        padding: 35px 25px;
+    }
+
+    .main-content {
+        margin-left: 0;
+        padding: 40px 20px;
+    }
+
+    .price-table {
+        flex-direction: column;
+    }
+
+    .sns-link-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================
+   📱 모바일 화면 최적화 (화면 너비 768px 이하)
+   ========================================== */
+@media (max-width: 768px) {
+    /* 1. 전체 레이아웃을 세로 배치로 변경 */
+    .layout-container {
+        flex-direction: column;
+        padding: 12px;
+    }
+
+    /* 2. 사이드바 메뉴 간소화 및 상단 고정 */
+    .sidebar {
+        width: 100%;
+        position: relative;
+        padding: 20px 16px;
+        margin-bottom: 20px;
+    }
+
+    .profile-section {
+        margin-bottom: 15px;
+    }
+
+    .profile-img {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* 사이드바 메뉴 버튼들을 가로 스크롤/바 형태로 배치 */
+    .nav-menu ul {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .nav-menu li {
+        margin-bottom: 0;
+    }
+
+    .nav-menu a {
+        padding: 8px 12px;
+        font-size: 0.85rem;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 8px;
+    }
+
+    .sidebar-footer {
+        display: none; /* 모바일에서는 하단 카피라이트 숨김 */
+    }
+
+    /* 3. 메인 콘텐츠 여백 및 폰트 크기 조정 */
+    .main-content {
+        padding: 0;
+    }
+
+    .section-title {
+        font-size: 1.4rem;
+        margin-bottom: 16px;
+    }
+
+    /* 4. 가격표 상자 1열(세로)로 보기 쉽게 배치 */
+    .price-table {
+        flex-direction: column;
+        gap: 16px;
+    }
+
+    .price-column {
+        width: 100%;
+    }
+
+    /* 5. 갤러리 그리드 모바일 맞춤 (2열 배치) */
+    .gallery-scroll-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+    }
+
+    /* 6. SNS 버튼 그리드 모바일 맞춤 */
+    .sns-link-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* 7. 주문 순서(HOW TO ORDER) 모바일 보기 개선 */
+    .step-container {
+        display: flex;
+        flex-direction: column; /* 세로 1열 정렬 */
+        gap: 10px;
+    }
+
+    .step-item {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        padding: 12px 16px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 10px;
+        position: relative;
+    }
+
+/* 단계 번호 색상을 노란색으로 통일 */
+    .step-item span {
+        margin-right: 12px;
+        font-weight: bold;
+        color: #ffb703; /* 👈 기존 #6366f1(파란색)에서 노란색으로 변경! */
+    }
+
+    .step-item p {
+        margin: 0;
+        font-size: 0.95rem;
+    }
+
+    /* 단계 사이 아래 화살표 표시 */
+    .step-item:not(:last-child)::after {
+        content: '↓';
+        position: absolute;
+        bottom: -18px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 0.8rem;
+    }
+
+    /* 8. 신청 양식 박스 폰트 크기 조정 */
+    #formContent {
+        font-size: 0.8rem !important;
+        padding: 12px !important;
+    }
+}

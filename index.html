@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>고해온 | COMMISSION & PORTFOLIO</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+</head>
+<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+
+    <div class="layout-container">
+        
+        <aside class="sidebar">
+            <div class="profile-section">
+                <img src="https://pbs.twimg.com/profile_images/1965673177654460416/6UTWt8N8_400x400.jpg" alt="프로필" class="profile-img">
+                <h1 class="artist-name">고해온</h1>
+                <p class="status-tag">COMMISSION OPEN</p>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="menu-group">
+                    <span class="menu-title">MENU</span>
+                    <ul>
+                        <li><a href="#" onclick="showTab('about', this)" class="active">소개 / SNS</a></li>
+                        <li><a href="#" onclick="showTab('portfolio', this)">포트폴리오</a></li>
+                        <li><a href="#" onclick="showTab('art-commission', this)">그림 커미션</a></li>
+                        <li><a href="#" onclick="showTab('vrchat-commission', this)">아바타 커미션</a></li>
+                        <li><a href="#" onclick="showTab('contact', this)">HOW TO ORDER</a></li>
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="sidebar-footer">
+                <p>© 2026 고해온. All rights reserved.</p>
+            </div>
+        </aside>
+
+        <main class="main-content">
+            
+            <section id="about" class="tab-content active">
+                <h2 class="section-title">ABOUT & SNS</h2>
+
+                <div class="about-card">
+                    <h3>✨ ABOUT ME</h3>
+                    <p class="about-bio">
+                        안녕하세요! 고해온입니다. 찾아와 주셔서 감사합니다.<br>
+                        캐릭터 일러스트 커미션을 진행하고 있습니다.<br>
+                        문의사항이 있으시다면 언제나 편하게 연락 주세요!
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <h3>🔗 OFFICIAL CHANNELS</h3>
+                    <div class="sns-link-grid">
+                        <a href="https://twitter.com/2NoSun2" target="_blank" class="sns-btn twitter">
+                            <span class="sns-icon">𝕏</span>
+                            <span class="sns-name">Twitter (X)</span>
+                            <span class="sns-id">@2NoSun2</span>
+                        </a>
+                        <a href="https://www.instagram.com/gohaeon/" target="_blank" class="sns-btn instagram">
+                            <span class="sns-icon">📷</span>
+                            <span class="sns-name">Instagram</span>
+                            <span class="sns-id">@gohaeon</span>
+                        </a>
+                        <a href="https://www.pixiv.net/users/107420736" target="_blank" class="sns-btn pixiv">
+                            <span class="sns-icon">🎨</span>
+                            <span class="sns-name">Pixiv</span>
+                            <span class="sns-id">고해온</span>
+                        </a>
+                        <a href="mailto:ibaeg200200@naver.com" class="sns-btn mail">
+                            <span class="sns-icon">✉️</span>
+                            <span class="sns-name">Email</span>
+                            <span class="sns-id">ibaeg200200@naver.com</span>
+                        </a>
+                        <a href="https://www.youtube.com/@%ED%95%B4%EC%98%A8%EC%9D%B4%EB%84%A4%ED%99%94%EC%8B%A4%EA%B3%B5%EB%B0%A9" target="_blank" class="sns-btn youtube">
+                            <span class="sns-icon">▶️</span>
+                            <span class="sns-name">Youtube</span>
+                            <span class="sns-id">해온이네화실공방</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="about-card">
+                    <h3>💻 WORK ENVIRONMENT</h3>
+                    <ul class="info-list">
+                        <li><span>Tool</span> <strong>CLIP STUDIO PAINT EX / Unity</strong></li>
+                        <li><span>Device</span> <strong>XPpen Artist Pro 16 (Gen 2)</strong></li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="portfolio" class="tab-content">
+                <h2 class="section-title">PORTFOLIO</h2>
+
+                <div class="gallery-sub-menu">
+                    <button class="sub-btn active" onclick="switchMainGallery('art-gallery', this)">그림 포트폴리오</button>
+                    <button class="sub-btn" onclick="switchMainGallery('avatar-gallery', this)">아바타 포트폴리오</button>
+                    <button class="sub-btn" onclick="switchMainGallery('anime-gallery', this)">🎬 애니메이션</button>
+                </div>
+
+                <div id="art-gallery" class="sub-gallery active">
+                    <div class="filter-bar">
+                        <button class="filter-btn active" onclick="filterArt('all', this)">ALL</button>
+                        <button class="filter-btn" onclick="filterArt('color', this)">🎨 채색 그림</button>
+                        <button class="filter-btn" onclick="filterArt('line', this)">✏️ 선화 그림</button>
+                    </div>
+
+                    <div class="gallery-scroll-list">
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="파우스트.png" alt="채색 샘플 1">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="자로.png" alt="채색 샘플 2">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="해온이.png" alt="채색 샘플 3">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="싱클.jpg" alt="채색 샘플 4">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="홍루생축.png" alt="채색 샘플 5">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="이스.jpg" alt="채색 샘플 6">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="뤼에엔.png" alt="채색 샘플 7">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="유리.png" alt="채색 샘플 8">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="초깨비셀카.png" alt="채색 샘플 9">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="이스으.gif" alt="채색 샘플 10">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="아르갈리아.png" alt="채색 샘플 11">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="뤼엔.png" alt="채색 샘플 12">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="돈키호테.png" alt="채색 샘플 13">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="뤼엔롤랑.png" alt="채색 샘플 14">
+                        </div>
+                        <div class="gallery-card art-item color" onclick="openModal(this.querySelector('img').src)">
+                            <img src="삼사키아라채색.png" alt="채색 샘플 15">
+                        </div>
+
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="초깨비선화.png" alt="선화 샘플 1">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="파우스트선화.png" alt="선화 샘플 2">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="이스선화1.jpg" alt="선화 샘플 3">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="이스선화2.jpg" alt="선화 샘플 4">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="지현선화.jpg" alt="선화 샘플 5">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="그렉선화.jpg" alt="선화 샘플 6">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="트최그.png" alt="선화 샘플 7">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="삼사키아라.jpg" alt="선화 샘플 8">
+                        </div>
+                        <div class="gallery-card art-item line" onclick="openModal(this.querySelector('img').src)">
+                            <img src="카이가쿠.jpg" alt="선화 샘플 9">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="avatar-gallery" class="sub-gallery">
+                    <div class="gallery-scroll-list">
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="avatar1.jpg" alt="아바타 샘플 1">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="avatar2.jpg" alt="아바타 샘플 2">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="anime-gallery" class="sub-gallery">
+                    <div class="gallery-scroll-list">
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="현이.gif" alt="현이">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="애니메이션 샘플 1.gif" alt="애니메이션 샘플 1">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="애니메이션 샘플 2.gif" alt="애니메이션 샘플 2">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="애니메이션 샘플 3.gif" alt="애니메이션 샘플 3">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="애니메이션 샘플 4.gif" alt="애니메이션 샘플 4">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="유현빙글.gif" alt="유현빙글">
+                        </div>
+                        <div class="gallery-card" onclick="openModal(this.querySelector('img').src)">
+                            <img src="노해빙글.gif" alt="노해빙글">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="art-commission" class="tab-content">
+                <div class="intro-banner">
+                    <h2>🎨 ART COMMISSION</h2>
+                    <p class="intro-text">저번 그림 커미션보다 가격이 인상됐습니다.</p>
+                    <p class="intro-text">신청 전 충분히 고민해보시길 권장드립니다!</p>
+                    <div class="highlight-badge">✨ 2인 타입 신청 시 10% 할인 적용!</div>
+                </div>
+
+                <div class="price-section">
+                    <div class="price-box">
+                        <div class="price-header">
+                            <h3>✏️ 선화 (Line Art)</h3>
+                            <span class="bg-badge">배경 추가 +2,000원</span>
+                        </div>
+                        <div class="price-table">
+                            <div class="price-column">
+                                <h4>1인</h4>
+                                <ul>
+                                    <li><span>흉상 (가슴까지)</span> <strong>5,000원</strong></li>
+                                    <li><span>반신 (무릎까지)</span> <strong>10,000원</strong></li>
+                                    <li><span>전신 (머리~발끝)</span> <strong>15,000원</strong></li>
+                                </ul>
+                            </div>
+                            <div class="price-column discount-col">
+                                <h4>2인 <span class="dc-tag">10% OFF</span></h4>
+                                <ul>
+                                    <li><span>흉상</span> <strong>9,000원</strong></li>
+                                    <li><span>반신</span> <strong>18,000원</strong></li>
+                                    <li><span>전신</span> <strong>27,000원</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="price-box">
+                        <div class="price-header">
+                            <h3>🎨 채색 (Coloring)</h3>
+                            <span class="bg-badge">배경 추가 +4,000원</span>
+                        </div>
+                        <div class="price-table">
+                            <div class="price-column">
+                                <h4>1인</h4>
+                                <ul>
+                                    <li><span>흉상 (가슴까지)</span> <strong>15,000원</strong></li>
+                                    <li><span>반신 (무릎까지)</span> <strong>30,000원</strong></li>
+                                    <li><span>전신 (머리~발끝)</span> <strong>45,000원</strong></li>
+                                </ul>
+                            </div>
+                            <div class="price-column discount-col">
+                                <h4>2인 <span class="dc-tag">10% OFF</span></h4>
+                                <ul>
+                                    <li><span>흉상</span> <strong>27,000원</strong></li>
+                                    <li><span>반신</span> <strong>54,000원</strong></li>
+                                    <li><span>전신</span> <strong>81,000원</strong></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="vrchat-commission" class="tab-content">
+                <div class="intro-banner">
+                    <h2>🧊 VRChat AVATAR COMMISSION</h2>
+                    <p class="intro-text">VRChat 3D 아바타 뚜따 커미션 안내 페이지입니다.</p>
+                    <div class="highlight-badge">🚧 추후 개장 예정 준비 중입니다!</div>
+                </div>
+
+                <div class="price-box">
+                    <div class="price-header">
+                        <h3>⚙️ 준비 중인 작업 항목</h3>
+                    </div>
+                    <ul class="simple-list">
+                        <li>아바타 뚜따 작업</li>
+                        <li>표정 작업</li>
+                    </ul>
+                    <p class="sub-note">* 정식 개장 시 세부 상세 금액 및 슬롯이 공개됩니다.</p>
+                </div>
+            </section>
+
+            <section id="contact" class="tab-content">
+                <h2 class="section-title">HOW TO ORDER</h2>
+                
+                <div class="order-box">
+                    <h3>🔄 작업 진행 순서</h3>
+                    <div class="step-container">
+                        <div class="step-item"><span>01</span><p>신청</p></div>
+                        <div class="step-item"><span>02</span><p>내용 확인/상담</p></div>
+                        <div class="step-item"><span>03</span><p>입금</p></div>
+                        <div class="step-item"><span>04</span><p>작업 시작</p></div>
+                        <div class="step-item"><span>05</span><p>러프 컨펌</p></div>
+                        <div class="step-item"><span>06</span><p>선화/채색</p></div>
+                        <div class="step-item"><span>07</span><p>완성</p></div>
+                    </div>
+                    <p class="step-desc">* 러프 컨펌 단계에서는 구도 및 포즈 확인을 진행합니다.</p>
+                </div>
+
+                <div class="notice-card">
+                    <h4>⚠️ 환불 안내 및 주의사항</h4>
+                    <ul>
+                        <li>입금 후 <strong>러프 컨펌 단계까지는 환불이 가능</strong>합니다.</li>
+                        <li>러프 단계가 끝나고 <strong>선화 단계에 들어간 이후에는 환불이 불가능</strong>합니다!</li>
+                    </ul>
+                </div>
+
+                <div class="form-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-top: 24px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
+                        <h3 style="margin:0; font-size: 1.2rem; color: #fff;">📋 COMMISSION 신청 양식</h3>
+                        <button onclick="copyFormText()" style="background: #6366f1; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;">📋 양식 복사하기</button>
+                    </div>
+                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 16px;">아래 양식을 작성하여 저에게 보내주세요.<br>신청 전 주의사항을 반드시 확인해주세요! :)</p>
+                    
+                    <pre id="formContent" style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: 12px; font-family: inherit; font-size: 0.9rem; color: #ddd; line-height: 1.7; white-space: pre-wrap; word-break: break-all; margin: 0; border: 1px solid rgba(255,255,255,0.05);">01. 신청자 정보
+닉네임 / 입금자명
+→ 
+
+02. 신청 내용
+신청 타입
+→ 선화 / 채색
+신청 범위
+→ 흉상 / 전신
+인원
+→ 1인 / 2인
+배경 추가
+→ O / X
+
+03. 자료(캐릭터, 배경)
+캐릭터 1
+→ 외형 및 특징 설명:
+
+캐릭터 2 (2인 신청 시)
+→ 외형 및 특징 설명:
+
+※ 이미지를 첨부해주시면 원하는 느낌을 살리기 수월해집니다.
+캐릭터의 특징이나 반드시 표현되었으면 하는 부분이 있다면 함께 적어주세요.
+
+배경
+→ 설명:
+※ 원하시는 배경의 이미지, 레퍼런스를 첨부해주시면 매우 좋습니다.
+
+04. 원하는 연출
+포즈 / 구도
+원하시는 포즈나 구도가 있다면 적어주세요.
+따로 원하시는 사항이 없다면 원하는 느낌을 말씀해주세요! 오마카세로 진행해드릴게요. :)
+
+표정 / 분위기
+→ 
+소품
+→ 
+※ 참고 이미지가 있다면 함께 첨부해주세요.
+
+05. 2인 신청 시
+두 캐릭터의 관계
+→ 
+원하는 분위기 / 연출
+→ 
+
+06. 기타 요청사항
+→ 작업 시 참고해야 할 사항이 있다면 자유롭게 적어주세요.
+
+07. 완성본 공개 여부
+→ 공개 가능 / 비공개</pre>
+                </div>
+
+                <div class="contact-wrapper" style="margin-top: 30px;">
+                    <a href="https://open.kakao.com/o/sMPEO0Mi" class="contact-btn">
+                        💬 오픈카카오톡으로 신청하기
+                    </a>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <div id="imageModal" class="image-modal" onclick="closeModal()">
+        <span class="modal-close">&times;</span>
+        <img class="modal-content" id="modalImg" alt="확대 이미지">
+    </div>
+
+    <script>
+        // 메인 탭 전환 함수
+        function showTab(tabId, element) {
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            const targetTab = document.getElementById(tabId);
+            if (targetTab) {
+                targetTab.classList.add('active');
+            }
+
+            const menuLinks = document.querySelectorAll('.nav-menu a');
+            menuLinks.forEach(link => link.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // 포트폴리오 서브 갤러리 전환 함수
+        function switchMainGallery(galleryId, element) {
+            const galleries = document.querySelectorAll('.sub-gallery');
+            galleries.forEach(g => g.classList.remove('active'));
+
+            const targetGallery = document.getElementById(galleryId);
+            if (targetGallery) {
+                targetGallery.classList.add('active');
+            }
+
+            const subBtns = document.querySelectorAll('.sub-btn');
+            subBtns.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // 포트폴리오 필터링 함수
+        function filterArt(type, element) {
+            const items = document.querySelectorAll('.art-item');
+            items.forEach(item => {
+                if (type === 'all' || item.classList.contains(type)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => btn.classList.remove('active'));
+            element.classList.add('active');
+        }
+
+        // 🔍 이미지 모달 열기 함수
+        function openModal(imageSrc) {
+            const modal = document.getElementById('imageModal');
+            const modalImg = document.getElementById('modalImg');
+            if (modal && modalImg) {
+                modal.classList.add('active');
+                modalImg.src = imageSrc;
+            }
+        }
+
+        // 🔍 이미지 모달 닫기 함수
+        function closeModal() {
+            const modal = document.getElementById('imageModal');
+            if (modal) {
+                modal.classList.remove('active');
+            }
+        }
+
+        // 📋 양식 클립보드 복사 함수
+        function copyFormText() {
+            const formText = document.getElementById('formContent').innerText;
+            navigator.clipboard.writeText(formText).then(() => {
+                alert('신청 양식이 클립보드에 복사되었습니다!');
+            }).catch(err => {
+                alert('복사에 실패했습니다. 수동으로 드래그해서 복사해주세요.');
+            });
+        }
+    </script>
+</body>
+</html>
