@@ -28,6 +28,37 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+/* ==========================================
+   🌓 다크 / 라이트 모드 전환 버튼 스타일
+========================================== */
+#themeToggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    background-color: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 30px;
+    font-size: 0.85rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(5px);
+}
+
+#themeToggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px);
+}
+
+[data-theme="light"] #themeToggle {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-color: rgba(0, 0, 0, 0.1);
+    color: #000;
+}
+
 .layout-container {
     display: flex;
     min-height: 100vh;
@@ -625,13 +656,11 @@ body {
    📱 모바일 화면 최적화 (화면 너비 768px 이하)
    ========================================== */
 @media (max-width: 768px) {
-    /* 1. 전체 레이아웃을 세로 배치로 변경 */
     .layout-container {
         flex-direction: column;
         padding: 12px;
     }
 
-    /* 2. 사이드바 메뉴 간소화 및 상단 고정 */
     .sidebar {
         width: 100%;
         height: auto;
@@ -651,7 +680,6 @@ body {
         height: 80px;
     }
 
-    /* 사이드바 메뉴 버튼들을 가로 스크롤/바 형태로 배치 */
     .nav-menu ul {
         display: flex;
         flex-wrap: wrap;
@@ -671,10 +699,9 @@ body {
     }
 
     .sidebar-footer {
-        display: none; /* 모바일에서는 하단 카피라이트 숨김 */
+        display: none;
     }
 
-    /* 3. 메인 콘텐츠 여백 및 폰트 크기 조정 */
     .main-content {
         margin-left: 0;
         padding: 0;
@@ -685,7 +712,6 @@ body {
         margin-bottom: 16px;
     }
 
-    /* 4. 가격표 상자 1열(세로)로 보기 쉽게 배치 */
     .price-table {
         flex-direction: column;
         gap: 16px;
@@ -695,21 +721,18 @@ body {
         width: 100%;
     }
 
-    /* 5. 갤러리 그리드 모바일 맞춤 (2열 배치) */
     .gallery-scroll-list {
         grid-template-columns: repeat(2, 1fr) !important;
         gap: 10px !important;
     }
 
-    /* 6. SNS 버튼 그리드 모바일 맞춤 */
     .sns-link-grid {
         grid-template-columns: 1fr;
     }
 
-    /* 7. 주문 순서(HOW TO ORDER) 모바일 보기 개선 */
     .step-container {
         display: flex;
-        flex-direction: column; /* 세로 1열 정렬 */
+        flex-direction: column;
         gap: 10px;
     }
 
@@ -725,7 +748,6 @@ body {
         position: relative;
     }
 
-    /* 단계 번호 색상을 노란색으로 통일 */
     .step-item span {
         margin-right: 12px;
         font-weight: bold;
@@ -737,7 +759,6 @@ body {
         font-size: 0.95rem;
     }
 
-    /* 단계 사이 아래 화살표 표시 */
     .step-item:not(:last-child)::after {
         content: '↓';
         position: absolute;
@@ -748,9 +769,16 @@ body {
         font-size: 0.8rem;
     }
 
-    /* 8. 신청 양식 박스 폰트 크기 조정 */
     #formContent {
         font-size: 0.8rem !important;
         padding: 12px !important;
+    }
+
+    /* 모바일 환경에서 모드 버튼 위치 미세 조정 */
+    #themeToggle {
+        top: 12px;
+        right: 12px;
+        padding: 6px 12px;
+        font-size: 0.75rem;
     }
 }
