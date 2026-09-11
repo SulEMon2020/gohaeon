@@ -7,6 +7,104 @@
     <link rel="icon" href="favicon.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <style>
+        /* 추가 및 보완 스타일 */
+        .use-price-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 18px;
+            margin-bottom: 20px;
+        }
+        .use-price-list {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0 0 0;
+        }
+        .use-price-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            font-size: 0.95rem;
+        }
+        .use-price-list li:last-child { border-bottom: none; }
+
+        /* FAQ 아코디언 스타일 */
+        .faq-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 24px;
+            margin-top: 24px;
+        }
+        .faq-item {
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+        .faq-item summary {
+            padding: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #fff;
+            list-style: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-item summary::after { content: '➕'; font-size: 0.8rem; }
+        .faq-item[open] summary::after { content: '➖'; }
+        .faq-item p {
+            padding: 0 16px 16px 16px;
+            margin: 0;
+            color: #ccc;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        /* Direct Form 스타일 */
+        .direct-form-group {
+            margin-bottom: 16px;
+        }
+        .direct-form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            color: #ddd;
+            font-weight: 600;
+        }
+        .direct-form-group input,
+        .direct-form-group select,
+        .direct-form-group textarea {
+            width: 100%;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            color: #fff;
+            font-family: inherit;
+            font-size: 0.9rem;
+            box-sizing: border-box;
+        }
+        .direct-form-group textarea { resize: vertical; }
+        .submit-btn {
+            width: 100%;
+            background: #6366f1;
+            color: #fff;
+            border: none;
+            padding: 14px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .submit-btn:hover { background: #4f46e5; }
+    </style>
 </head>
 <body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 
@@ -34,6 +132,7 @@
 
             <div class="sidebar-footer">
                 <p>© 2026 고해온. All rights reserved.</p>
+                <p class="fanart-notice-sidebar">※ 본 사이트에는 창작물과 팬아트가 함께 포함되어 있습니다.</p>
             </div>
         </aside>
 
@@ -93,6 +192,10 @@
 
             <section id="portfolio" class="tab-content">
                 <h2 class="section-title">PORTFOLIO</h2>
+
+                <div class="portfolio-notice-box">
+                    <span>💡 본 포트폴리오에는 오리지널 창작물과 함께 팬아트 작품이 포함되어 있습니다. 팬아트의 원작 저작권은 각 원작사에 있습니다.</span>
+                </div>
 
                 <div class="gallery-sub-menu">
                     <button class="sub-btn active" onclick="switchMainGallery('art-gallery', this)">그림 포트폴리오</button>
@@ -230,6 +333,16 @@
                     <div class="highlight-badge">✨ 2인 타입 신청 시 10% 할인 적용!</div>
                 </div>
 
+                <!-- 사용 용도별 가격 기준 -->
+                <div class="use-price-card">
+                    <h3 style="margin: 0 0 10px 0; color: #fff; font-size: 1.1rem;">📢 사용 용도별 가격 안내</h3>
+                    <ul class="use-price-list">
+                        <li><span>비상업적 (소장 / 개인 프로필)</span><strong>기본가 (100%)</strong></li>
+                        <li><span>방송용 (유튜브, 치지직, 썸네일 등)</span><strong>기본가 × 2.5</strong></li>
+                        <li><span>상업용 (굿즈 판매, 웹소설 표지 등)</span><strong>별도 문의 (상담 후 협의)</strong></li>
+                    </ul>
+                </div>
+
                 <div class="price-section">
                     <div class="price-box">
                         <div class="price-header">
@@ -304,7 +417,7 @@
 
             <section id="contact" class="tab-content">
                 <h2 class="section-title">HOW TO ORDER</h2>
-                
+
                 <div class="order-box">
                     <h3>🔄 작업 진행 순서</h3>
                     <div class="step-container">
@@ -327,12 +440,33 @@
                     </ul>
                 </div>
 
+                <!-- FAQ (자주 묻는 질문) -->
+                <div class="faq-card">
+                    <h3 style="margin: 0 0 16px 0; color: #fff; font-size: 1.2rem;">❓ 자주 묻는 질문 (FAQ)</h3>
+                    
+                    <details class="faq-item">
+                        <summary>Q. 비상업적 용도로 구매한 그림을 방송용으로 써도 되나요?</summary>
+                        <p>비상업적 커미션은 개인 소장 및 소장용 프로필에만 사용하실 수 있으며, 수익이 발생하는 방송(유튜브, 치지직, 아프리카TV 등) 배너/화면/썸네일 사용은 불가능합니다. 방송에 활용하실 경우 **'방송용(기본가 2.5배)'**을 선택해 주셔야 합니다.</p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Q. 수정(피드백)은 몇 회까지 가능한가요?</summary>
+                        <p>수정은 **선화 단계에서 최대 3회까지** 가능합니다. 그 이후 단계(채색 등)로 진입한 후에는 구도 변경이나 큰 틀의 수정이 어려우니, 선화 단계에서 신중한 피드백을 부탁드립니다.</p>
+                    </details>
+
+                    <details class="faq-item">
+                        <summary>Q. 작업 기간은 보통 얼마나 걸리나요?</summary>
+                        <p>작업 기간은 **입금 확인 및 실제 작업을 시작한 시점부터 산정**됩니다. 그림의 구도, 소품, 난이도에 따라 달라지므로, 신청서 확인 후 견적 및 예상 완료일을 구체적으로 안내해 드립니다.</p>
+                    </details>
+                </div>
+
+                <!-- 양식 복사 카드 -->
                 <div class="form-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-top: 24px;">
                     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; flex-wrap: wrap; gap: 10px;">
                         <h3 style="margin:0; font-size: 1.2rem; color: #fff;">📋 COMMISSION 신청 양식</h3>
                         <button onclick="copyFormText()" style="background: #6366f1; color: #fff; border: none; padding: 8px 16px; border-radius: 8px; cursor: pointer; font-weight: bold; transition: 0.2s;">📋 양식 복사하기</button>
                     </div>
-                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 16px;">아래 양식을 작성하여 저에게 보내주세요.<br>신청 전 주의사항을 반드시 확인해주세요! :)</p>
+                    <p style="color: #aaa; font-size: 0.9rem; margin-bottom: 16px;">아래 양식을 작성하여 직접 전송하거나 오픈카톡으로 보내주세요.<br>신청 전 주의사항을 반드시 확인해주세요! :)</p>
                     
                     <pre id="formContent" style="background: rgba(0,0,0,0.4); padding: 18px; border-radius: 12px; font-family: inherit; font-size: 0.9rem; color: #ddd; line-height: 1.7; white-space: pre-wrap; word-break: break-all; margin: 0; border: 1px solid rgba(255,255,255,0.05);">01. 신청자 정보
 닉네임 / 입금자명
@@ -345,6 +479,8 @@
 → 흉상 / 전신
 인원
 → 1인 / 2인
+용도
+→ 비상업적 / 방송용 / 상업용
 배경 추가
 → O / X
 
@@ -386,9 +522,38 @@
 → 공개 가능 / 비공개</pre>
                 </div>
 
+                <!-- 사이트 내 직접 신청 폼 (Formspree 연결) -->
+                <div class="form-card" style="background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 16px; padding: 24px; margin-top: 24px;">
+                    <h3 style="margin:0 0 10px 0; font-size: 1.2rem; color: #fff;">📩 사이트에서 바로 신청하기</h3>
+                    <p style="color: #aaa; font-size: 0.85rem; margin-bottom: 20px;">오픈카카오톡 없이 사이트에서 직접 작가에게 메시지를 남길 수 있습니다.</p>
+                    
+                    <form action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                        <div class="direct-form-group">
+                            <label>신청자 닉네임 및 연락받으실 이메일</label>
+                            <input type="text" name="applicant_info" placeholder="예: 고해온 / ibaeg200200@naver.com" required>
+                        </div>
+
+                        <div class="direct-form-group">
+                            <label>사용 용도</label>
+                            <select name="usage">
+                                <option value="비상업적">비상업적 (소장 / 개인 프로필)</option>
+                                <option value="방송용">방송용 (수익형 방송 / 썸네일)</option>
+                                <option value="상업용">상업용 (굿즈 / 판매용 / 외주)</option>
+                            </select>
+                        </div>
+
+                        <div class="direct-form-group">
+                            <label>신청서 작성 내용 (위 양식을 참고하여 적어주세요)</label>
+                            <textarea name="content" rows="8" placeholder="타입, 캐릭터 설명, 포즈 및 구도, 완성본 공개 여부 등을 작성해주세요." required></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">작성한 신청서 제출하기</button>
+                    </form>
+                </div>
+
                 <div class="contact-wrapper" style="margin-top: 30px;">
                     <a href="https://open.kakao.com/o/sMPEO0Mi" class="contact-btn">
-                        💬 오픈카카오톡으로 신청하기
+                        💬 오픈카카오톡으로 문의/신청하기
                     </a>
                 </div>
             </section>
